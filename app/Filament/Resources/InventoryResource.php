@@ -7,6 +7,7 @@ use App\Filament\Resources\InventoryResource\RelationManagers;
 use App\Models\Inventory;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Grid;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -26,26 +27,35 @@ class InventoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->name('Nome')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('description')
-                    ->name('Descrição')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Grid::make()->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->label('Nome')
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('quantity')
+                        ->label('Quantidade')
+                        ->minValue(1)
+                        ->required()
+                        ->numeric(),
+                ])->columns(2),
+
+                Forms\Components\Grid::make()->schema([
+                    Forms\Components\RichEditor::make('description')
+                        ->label('Descrição')
+                        ->required()
+                        ->maxLength(255),
+                ])->columns(1),
+
+
                 Forms\Components\FileUpload::make('image')
-                    ->name('Imagem do produto')
+                    ->name('Imagem')
                     ->image()
                     ->required(),
-                Forms\Components\TextInput::make('quantity')
-                    ->name('Quantidade')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('category_id')
-                    ->name('Categoria')
-                    ->required()
-                    ->numeric(),
+
+                Forms\Components\Select::make('category_id')
+                    ->label('Categoria')
+                    ->relationship('category', 'name')
+                    ->required(),
             ]);
     }
 
@@ -56,13 +66,15 @@ class InventoryResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nome')
                     ->searchable(),
+                Tables\Columns\ToggleColumn::make('active')
+                    ->label('Ativo'),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Descrição')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image')
                     ->circular()
                     ->defaultImageUrl(url('/images/placeholder.png'))
-                    ->label('Imagem do produto'),
+                    ->label('Imagem'),
                 Tables\Columns\TextColumn::make('quantity')
                     ->label('Quantidade')
                     ->numeric()
@@ -84,7 +96,9 @@ class InventoryResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

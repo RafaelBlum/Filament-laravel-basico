@@ -31,7 +31,7 @@
  quantidade de tratamentos administrados no último ano.
  - `Exemplo | Novo`: 
 
-# :label: Configuração de banco de dados, migrate, models, etc.
+## :label: Config. database, migrate, models, etc.
 
 #### 💥 Projeto Inventário de estoque
 
@@ -40,13 +40,19 @@
 
 - **_php artisan make:filament-resource Inventory --generate_** | O `generate` irá add todas propriedades da sua migrate.
 
+> Para que a imagem do produto apareça de forma correta, temos que ativa o `storage link` e modificar logo apos no arquivo `.ENV`
+>a linha de `APP_URL` para receber a base do app `=http://127.0.0.1:8000`.
+
+- **_php artisan storage:link_**
+
+
 > :ok_hand: Migrations
 ~~~~~~
     Schema::create('inventories', function (Blueprint $table) {
         $table->id();
         $table->string('name');
         $table->string('description');
-        $table->string('image');
+`        $table->string('image');
         $table->integer('quantity');
         $table->foreignIdFor(\App\Models\Category::class);
         $table->timestamps();

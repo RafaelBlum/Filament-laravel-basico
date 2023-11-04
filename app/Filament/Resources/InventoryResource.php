@@ -27,18 +27,23 @@ class InventoryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->name('Nome')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('description')
+                    ->name('Descrição')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
+                    ->name('Imagem do produto')
                     ->image()
                     ->required(),
                 Forms\Components\TextInput::make('quantity')
+                    ->name('Quantidade')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('category_id')
+                    ->name('Categoria')
                     ->required()
                     ->numeric(),
             ]);
@@ -49,20 +54,27 @@ class InventoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nome')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
+                    ->label('Descrição')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->circular()
+                    ->defaultImageUrl(url('/images/placeholder.png'))
+                    ->label('Imagem do produto'),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->label('Quantidade')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('category_id')
+                Tables\Columns\TextColumn::make('category.name')
+                    ->label('Categoria')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

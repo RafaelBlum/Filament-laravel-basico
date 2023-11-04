@@ -31,16 +31,16 @@
  quantidade de tratamentos administrados no último ano.
  - `Exemplo | Novo`: 
 
-## Configuração de banco de dados, migrate, models, etc.
+# :label: Configuração de banco de dados, migrate, models, etc.
 
-    ⚜ Projeto Inventário de estoque
+#### 💥 Projeto Inventário de estoque
 
 - **_php artisan make:model inventory -m_**
 - **_php artisan make:model Category -m_**
 
 - **_php artisan make:filament-resource Inventory --generate_** | O `generate` irá add todas propriedades da sua migrate.
 
-> Migrations
+> :ok_hand: Migrations
 ~~~~~~
     Schema::create('inventories', function (Blueprint $table) {
         $table->id();
@@ -62,7 +62,7 @@
 - OBs: Se não tem certeza com a chave, `category_id` ou qualquer outra chave, podemos usar a função `foreignIdFor` e 
 passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da classe` e `_id`.
 
-> Relacionamento Models
+> :ok_hand: Relacionamento Models
 
 ~~~~~~
     //Inventory

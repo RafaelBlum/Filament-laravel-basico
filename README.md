@@ -15,11 +15,61 @@
 - [Get started Filament](https://filamentphp.com/docs).
 - [Panel Builder Installation](https://filamentphp.com/docs/3.x/panels/installation).
 
+> Este projeto de exemplo irá abordar o exemplo que o próprio  `Filament` gera como exemplo em sua `página de panels` e vamos 
+> incluir um `sistema de estoque` simples.
+
+#### Descrição dos projetos `exemplo`
+ - `Exemplo | Filament`: A construção de um sistema simples de gerenciamento de pacientes para uma clínica veterinária usando o Filament. 
+ Apoiará a adição de novos `pacientes` (gatos, cães ou coelhos), atribuindo-os a um `proprietário` e registrando quais 
+ `tratamentos` eles receberam. O sistema terá um painel com estatísticas sobre os tipos de pacientes e um gráfico com a 
+ quantidade de tratamentos administrados no último ano.
+ - `Exemplo | Novo`: 
 
 ## Configuração de banco de dados, migrate, models, etc.
 
-    ⚜ Inventário de estoque
+    ⚜ Projeto Inventário de estoque
 
-- **_php artisan make:model inventorie -m_**
-- **[Tighten Co.](https://tighten.co)**
+- **_php artisan make:model inventory -m_**
+- **_php artisan make:model Category -m_**
+
+- **_php artisan make:filament-resource Inventory --generate_** | O `generate` irá add todas propriedades da sua migrate.
+
+> Migrations
+~~~~~~
+    Schema::create('inventories', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->string('description');
+        $table->string('image');
+        $table->integer('quantity');
+        $table->foreignIdFor(\App\Models\Category::class);
+        $table->timestamps();
+    });
+
+    Schema::create('categories', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->timestamps();
+    });
+~~~~~~
+
+- OBs: Se não tem certeza com a chave, `category_id` ou qualquer outra chave, podemos usar a função `foreignIdFor` e 
+passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da classe` e `_id`.
+
+> Relacionamento Models
+
+~~~~~~
+    //Inventory
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    //Category
+    public function products()
+    {
+        return $this->hasMany(Inventory::class);
+    }
+~~~~~~
+
 

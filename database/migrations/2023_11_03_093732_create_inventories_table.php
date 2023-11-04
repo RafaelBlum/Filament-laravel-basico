@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('description');
+            $table->string('image');
+            $table->integer('quantity');
+            $table->foreignIdFor(\App\Models\Category::class);
             $table->timestamps();
         });
     }

@@ -35,22 +35,30 @@
 
 #### 💥 Projeto Inventário de estoque
 > Criando as migrates e models
-- **_php artisan make:model inventory -m_**
-- **_php artisan make:model Category -m_**
+
+```
+**_php artisan make:model inventory -m_**
+**_php artisan make:model Category -m_**
+```
 
 > Criando as resources `views completas`| O `generate` irá add todas propriedades da sua migrate.
 
-- php artisan make:filament-resource Inventory --generate
+```
+**_php artisan make:filament-resource Inventory --generate_**
+```
 
 > Opção: Podemos criar de forma `simplificada com MODALs` no lugar de páginas de editar e criar
 
-- **_php artisan make:filament-resource Inventory --simple --generate_**
+```
+**_php artisan make:filament-resource Inventory --simple --generate_**
+```
 
 > Para que a imagem do produto apareça de forma correta, temos que ativa o `storage link` e modificar logo apos no arquivo `.ENV`
 >a linha de `APP_URL` para receber a base do app `=http://127.0.0.1:8000`.
 
-- **_php artisan storage:link_**
-
+```
+**_php artisan storage:link_**
+```
 
 > :ok_hand: Migrations [documentação laravel migrations table](https://laravel.com/docs/7.x/migrations)
 ~~~~~~
@@ -92,7 +100,9 @@ passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da
 
 > Add column active no inventario
 
-- php artisan make:migration alter_inventory_table_add_active_column --table=inventories
+```
+**_php artisan make:migration alter_inventory_table_add_active_column --table=inventories_**
+```
 
 ~~~~~~
     Schema::table('inventories', function (Blueprint $table) {

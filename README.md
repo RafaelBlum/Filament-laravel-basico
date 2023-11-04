@@ -38,10 +38,12 @@
 - **_php artisan make:model inventory -m_**
 - **_php artisan make:model Category -m_**
 
-> Criando as resources views completas
-- **_php artisan make:filament-resource Inventory --generate_** | O `generate` irá add todas propriedades da sua migrate.
+> Criando as resources `views completas`| O `generate` irá add todas propriedades da sua migrate.
 
-> Opção: Podemos criar de forma simplificada com MODALs no lugar de páginas de editar e criar
+- **_php artisan make:filament-resource Inventory --generate_** 
+
+> Opção: Podemos criar de forma `simplificada com MODALs` no lugar de páginas de editar e criar
+
 - **_php artisan make:filament-resource Inventory --simple --generate_**
 
 > Para que a imagem do produto apareça de forma correta, temos que ativa o `storage link` e modificar logo apos no arquivo `.ENV`
@@ -90,10 +92,10 @@ passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da
 
 > Add column active no inventario
 
-- php artisan make:migration alter_invetory_table_add_active_column --table=inventories
+- php artisan make:migration alter_inventory_table_add_active_column --table=inventories
 
 ~~~~~~
-Schema::table('inventories', function (Blueprint $table) {
-            $table->boolean('active')->default(true);
-        });
+    Schema::table('inventories', function (Blueprint $table) {
+        $table->boolean('active')->default(true);
+    });
 ~~~~~~

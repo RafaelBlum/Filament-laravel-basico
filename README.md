@@ -40,7 +40,7 @@
 
 > Criando as resources `views completas`| O `generate` irá add todas propriedades da sua migrate.
 
-- **_php artisan make:filament-resource Inventory --generate_** 
+- php artisan make:filament-resource Inventory --generate
 
 > Opção: Podemos criar de forma `simplificada com MODALs` no lugar de páginas de editar e criar
 

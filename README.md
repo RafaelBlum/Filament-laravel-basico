@@ -31,33 +31,39 @@
  quantidade de tratamentos administrados no último ano.
  - `Exemplo | Novo`: 
 
+<p align="center">
+	<a href="#"  target="_blank" title="Diagrama">
+		<img src="public/images/diagram.jpg" alt="Diagramação de componentes livewire" style="border-radius: 5px;" width="600">
+	</a>
+</p>
+
 ## :label: Config. database, migrate, models, etc.
 
 #### 💥 Projeto Inventário de estoque
 > Criando as migrates e models
 
 ```
-**_php artisan make:model inventory -m_**
-**_php artisan make:model Category -m_**
+php artisan make:model inventory -m
+php artisan make:model Category -m
 ```
 
 > Criando as resources `views completas`| O `generate` irá add todas propriedades da sua migrate.
 
 ```
-**_php artisan make:filament-resource Inventory --generate_**
+php artisan make:filament-resource Inventory --generate
 ```
 
 > Opção: Podemos criar de forma `simplificada com MODALs` no lugar de páginas de editar e criar
 
 ```
-**_php artisan make:filament-resource Inventory --simple --generate_**
+php artisan make:filament-resource Inventory --simple --generate
 ```
 
 > Para que a imagem do produto apareça de forma correta, temos que ativa o `storage link` e modificar logo apos no arquivo `.ENV`
 >a linha de `APP_URL` para receber a base do app `=http://127.0.0.1:8000`.
 
 ```
-**_php artisan storage:link_**
+php artisan storage:link
 ```
 
 > :ok_hand: Migrations [documentação laravel migrations table](https://laravel.com/docs/7.x/migrations)
@@ -98,10 +104,27 @@ passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da
     }
 ~~~~~~
 
-> Add column active no inventario
+> E para criar a relação na view de `InventoryResource`, mostrando os nomes das categorias, usamos o `relationship('category', 'name')`
+
+~~~~~~
+        Forms\Components\Select::make('category_id')
+            ->label('Categoria')
+            ->relationship('category', 'name')
+            ->required(),
+~~~~~~
+
+> Modifiquei as `GRIDs` do layout do `form` colocando um `Grid::make()`, add um `RichEditor`.
+
+~~~~~~
+    Forms\Components\Grid::make()->schema([
+        //...
+    ])->columns(2),
+~~~~~~
+
+#### Adicionando nova coluna `active` no inventario
 
 ```
-**_php artisan make:migration alter_inventory_table_add_active_column --table=inventories_**
+php artisan make:migration alter_inventory_table_add_active_column --table=inventories
 ```
 
 ~~~~~~

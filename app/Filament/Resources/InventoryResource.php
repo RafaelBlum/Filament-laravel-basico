@@ -26,18 +26,18 @@ class InventoryResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Grid::make()->schema([
-                    Forms\Components\TextInput::make('name')
-                        ->label('Nome')
-                        ->required()
-                        ->maxLength(255),
-                    Forms\Components\TextInput::make('quantity')
-                        ->label('Quantidade')
-                        ->minValue(1)
-                        ->required()
-                        ->numeric(),
-                ])->columns(2),
+            ->schema([Forms\Components\Grid::make()->schema([
+                Forms\Components\TextInput::make('name')
+                    ->label('Nome')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('quantity')
+                    ->label('Quantidade')
+                    ->minValue(1)
+                    ->required()
+                    ->numeric(),
+            ])->columns(2),
+
 
                 Forms\Components\Grid::make()->schema([
                     Forms\Components\RichEditor::make('description')

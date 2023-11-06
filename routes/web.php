@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/admin/categories/{category}/edit', [\App\Http\Controllers\CategoryController::class, 'create']);

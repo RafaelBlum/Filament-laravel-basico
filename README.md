@@ -132,3 +132,12 @@ php artisan make:migration alter_inventory_table_add_active_column --table=inven
         $table->boolean('active')->default(true);
     });
 ~~~~~~
+
+
+~~~~~~
+php artisan make:filament-relation-manager PatientResource treatments description
+php artisan make:filament-widget PatientTypeOverview --stats-overview
+php artisan make:filament-widget TreatmentsChart --chart
+
+composer require flowframe/laravel-trend
+~~~~~~

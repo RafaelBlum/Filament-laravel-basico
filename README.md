@@ -47,8 +47,7 @@ php artisan make:model inventory -m
 php artisan make:model Category -m
 ```
 
-> O Filament tem uma serie de comandos próprios conforme abaixo, que vou deburgar e descrever meu entendimento no 
->decorrer deste projetinho. 
+#### O Filament tem uma serie de comandos próprios conforme abaixo, que vou deburgar e descrever meu entendimento no decorrer deste projetinho. 
 
 - make:filament-page              Create a new Filament page class and view
 - make:filament-panel             Create a new Filament panel

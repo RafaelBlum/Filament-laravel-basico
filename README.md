@@ -10,7 +10,7 @@
 	</a>
 </p>
 
-# 🚀 Versão do Filament 3.0
+# 🚀 Demonstrando e desenvolvendo Filament 3.0 - `Básico`
 
 > O objetivo deste projeto é demonstrar e trabalhar com a nova versão desta coleção de componentes full-stack do laravel.
 >O filamenté uma ótima opção se queremos acelerar o desenvolvimento, como a propria ferramente nos diz. A documentação é bem fácil de entender,
@@ -47,38 +47,8 @@ php artisan make:model inventory -m
 php artisan make:model Category -m
 ```
 
-#### O Filament tem uma serie de comandos próprios conforme abaixo, que vou deburgar e descrever meu entendimento no decorrer deste projetinho. 
 
-- make:filament-page              Create a new Filament page class and view
-- make:filament-panel             Create a new Filament panel
-- make:filament-relation-manager  Create a new Filament relation manager class for a resource
-- :boom: make:filament-resource          :heavy_check_mark: Cria os arquivos de resources do Filament e cria toda parte das classes padrão.
-- make:filament-theme             Create a new Filament panel theme
-- make:filament-user              Create a new Filament user
-- make:filament-widget            Create a new Filament widget class
-
-
-> Criando as resources `views completas`| O `generate` irá add todas propriedades da sua migrate.
-
-```
-php artisan make:filament-resource Inventory --generate
-php artisan make:filament-resource User --generate
-```
-
-> Opção: Podemos criar de forma `simplificada com MODALs` no lugar de páginas de editar e criar
-
-```
-php artisan make:filament-resource Inventory --simple --generate
-```
-
-> Para que a imagem do produto apareça de forma correta, temos que ativa o `storage link` e modificar logo apos no arquivo `.ENV`
->a linha de `APP_URL` para receber a base do app `=http://127.0.0.1:8000`.
-
-```
-php artisan storage:link
-```
-
-> :ok_hand: Migrations [documentação laravel migrations table](https://laravel.com/docs/7.x/migrations)
+> :ok_hand: Definindo as propriedades das Migrations [documentação laravel migrations table](https://laravel.com/docs/7.x/migrations)
 ~~~~~~
     Schema::create('inventories', function (Blueprint $table) {
         $table->id();
@@ -115,6 +85,41 @@ passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da
         return $this->hasMany(Inventory::class);
     }
 ~~~~~~
+
+> Para que a imagem do produto apareça de forma correta, temos que ativa o `storage link` e modificar logo apos no arquivo `.ENV`
+>a linha de `APP_URL` para receber a base do app `=http://127.0.0.1:8000`.
+
+```
+php artisan storage:link
+```
+
+## 🚀 Filament
+
+#### O Filament tem uma serie de comandos próprios conforme abaixo, que vou deburgar e descrever meu entendimento no decorrer deste projetinho. 
+
+- make:filament-page              Create a new Filament page class and view
+- make:filament-panel             Create a new Filament panel
+- make:filament-relation-manager  Create a new Filament relation manager class for a resource
+- :boom: make:filament-resource          :heavy_check_mark: Cria o arquivo de `resources` do seu modelo em App/Filament e cria toda estrutura das classes padrão.
+    - Qualquer `model` que você criar em seu projeto laravel, podemos criar os Filaments em nosso projeto e ter páginas ou modais.
+- make:filament-theme             Create a new Filament panel theme
+- make:filament-user              Create a new Filament user
+- make:filament-widget            Create a new Filament widget class
+
+
+> Criando as classes `views completas`| O `generate` irá add todas propriedades da sua migrate, criando páginas para seu projeto.
+
+```
+php artisan make:filament-resource Inventory --generate
+php artisan make:filament-resource User --generate
+```
+
+> Opção: Você pode criar de forma simples, views `simplificadas com MODAIs` no lugar de um página, como editar ou criar.
+
+```
+php artisan make:filament-resource Inventory --simple --generate
+```
+
 
 > E para criar a relação na view de `InventoryResource`, mostrando os nomes das categorias, usamos o `relationship('category', 'name')`
 

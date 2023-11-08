@@ -10,7 +10,7 @@
 	</a>
 </p>
 
-# 🚀 Demonstrando e desenvolvendo Filament 3.0 - `Básico`
+# 🚀 Demonstrando Filament 3.0 - `Básico`
 
 > O objetivo deste projeto é demonstrar e trabalhar com a nova versão desta coleção de componentes full-stack do laravel.
 >O filamenté uma ótima opção se queremos acelerar o desenvolvimento, como a propria ferramente nos diz. A documentação é bem fácil de entender,

@@ -47,10 +47,23 @@ php artisan make:model inventory -m
 php artisan make:model Category -m
 ```
 
+> O Filament tem uma serie de comandos próprios conforme abaixo, que vou deburgar e descrever meu entendimento no 
+>decorrer deste projetinho. 
+
+- make:filament-page              Create a new Filament page class and view
+- make:filament-panel             Create a new Filament panel
+- make:filament-relation-manager  Create a new Filament relation manager class for a resource
+- :boom: make:filament-resource          :heavy_check_mark: Cria os arquivos de resources do Filament e cria toda parte das classes padrão.
+- make:filament-theme             Create a new Filament panel theme
+- make:filament-user              Create a new Filament user
+- make:filament-widget            Create a new Filament widget class
+
+
 > Criando as resources `views completas`| O `generate` irá add todas propriedades da sua migrate.
 
 ```
 php artisan make:filament-resource Inventory --generate
+php artisan make:filament-resource User --generate
 ```
 
 > Opção: Podemos criar de forma `simplificada com MODALs` no lugar de páginas de editar e criar

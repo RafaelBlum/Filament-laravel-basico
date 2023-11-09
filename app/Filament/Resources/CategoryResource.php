@@ -20,7 +20,7 @@ class CategoryResource extends Resource
     protected static ?string $pluralModelLabel = "Categorias";
     protected static ?string $modelLabel = "Categoria";
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-arrow-down-on-square';
 
     public static function form(Form $form): Form
     {
@@ -29,6 +29,8 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('slug')
+                    ->required(),
             ]);
     }
 
@@ -38,6 +40,7 @@ class CategoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

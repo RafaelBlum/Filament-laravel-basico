@@ -19,7 +19,7 @@ class PatientResource extends Resource
     protected static ?string $pluralModelLabel = "Pacientes";
     protected static ?string $modelLabel = "Paciente";
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
     {

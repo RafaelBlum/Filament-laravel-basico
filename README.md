@@ -184,7 +184,11 @@ php artisan make:filament-resource Inventory --simple --generate
     ])->columns(2),
 ~~~~~~
 
-
+<p align="center">
+	<a href="#"  target="_blank" title="Diagrama">
+		<img src="public/images/layouts.jpg" alt="layouts" style="border-radius: 5px;" width="600">
+	</a>
+</p>
 
 
 #### Adicionando nova coluna `active` no inventario

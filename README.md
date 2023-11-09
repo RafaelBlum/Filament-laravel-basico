@@ -155,13 +155,41 @@ php artisan make:filament-resource Inventory --simple --generate
 
 #### Layouts ( Section & Group) 
 
-> Modifiquei as `GRIDs` do layout do `form` colocando um `Grid::make()`, add um `RichEditor`.
+> Alguns detalhes/Dicas de `GRIDs` `Groups`, `Sections` com columns e columnSpans.
 
 ~~~~~~
+    
+    return $form->schema([
+        RichEditor::make('content')->columnSpan(3) //ou 'full' ou ->columnSpanFull()
+    ])->columns(3),
+
     Forms\Components\Grid::make()->schema([
         //...
     ])->columns(2),
+    
+    //Forms
+    return $form
+            ->schema([
+                Section::make('Dados básicos da postagem')
+                    ->description('Criação de postagem')
+                    ->collapsible()
+                    ->schema([
+                    //..
+                ])->columnSpan(1)->columns(2),
+
+                Section::make('description')
+                    ->schema([
+                    //...
+                ])->columnSpan(1)->columns(2),
+    ])->columns(2),
 ~~~~~~
+
+<p align="center">
+	<a href="#"  target="_blank" title="Diagrama">
+		<img src="public/images/layouts.jpg" alt="layouts" style="border-radius: 5px;" width="600">
+	</a>
+</p>
+
 
 #### Adicionando nova coluna `active` no inventario
 

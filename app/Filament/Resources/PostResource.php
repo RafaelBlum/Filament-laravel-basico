@@ -10,8 +10,8 @@ use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ColorPicker;
-use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
@@ -37,35 +37,56 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Select::make('category_id')
-                    ->label('Categoria')
-                    ->required()
-                    ->options(Category::all()->pluck('name', 'id')),
-                FileUpload::make('thumbnail')
-                    ->disk('public')
-                    ->directory('thumbnails'),
-                ColorPicker::make('color')
-                    ->required(),
-                TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
+
+                Section::make('Dados básicos da postagem')
+                    ->description('Criação de postagem')
+                    ->collapsible()
+                    ->schema([
+
+                        Forms\Components\Group::make()->schema([
+                            TextInput::make('title')
+                                ->required()
+                                ->maxLength(255),
+                            ColorPicker::make('color')
+                                ->required(),
+                        ]),
+
+                    Select::make('category_id')
+                        ->label('Categoria')
+                        ->required()
+                        ->options(Category::all()->pluck('name', 'id')),
+                        TextInput::make('slug')
+                            ->required()
+                            ->maxLength(255),
+
+                ])->columnSpan(1)->columns(2),
+
+
+
+
+                Section::make('Dados de publicação')
+                    ->schema([
+                        TagsInput::make('tags')
+                            ->required()
+                            ->suggestions([
+                                'tailwindcss',
+                                'alpinejs',
+                                'laravel',
+                                'livewire',
+                            ]),
+                        Toggle::make('published')
+                            ->required(),
+                        FileUpload::make('thumbnail')
+                            ->disk('public')
+                            ->directory('thumbnails')->columnSpanFull(),
+                    ])->columnSpan(1)->columns(2),
+
                 RichEditor::make('content')
+                    ->columnSpanFull()
                     ->maxLength(65535)
                     ->columnSpanFull(),
-                TagsInput::make('tags')
-                    ->required()
-                    ->suggestions([
-                        'tailwindcss',
-                        'alpinejs',
-                        'laravel',
-                        'livewire',
-                    ]),
-                Toggle::make('published')
-                    ->required(),
-            ])->columns(10);
+
+            ])->columns(2);
     }
 
     public static function table(Table $table): Table

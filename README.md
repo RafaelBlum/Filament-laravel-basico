@@ -48,7 +48,7 @@ php artisan make:model Category -m
 ```
 
 
-> :ok_hand: Definindo as propriedades das Migrations [documentação laravel migrations table](https://laravel.com/docs/7.x/migrations)
+#### :ok_hand: Definindo as propriedades das Migrations [documentação laravel migrations table](https://laravel.com/docs/7.x/migrations)
 ~~~~~~
     Schema::create('inventories', function (Blueprint $table) {
         $table->id();
@@ -70,7 +70,7 @@ php artisan make:model Category -m
 - OBs: Se não tem certeza com a chave, `category_id` ou qualquer outra chave, podemos usar a função `foreignIdFor` e 
 passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da classe` e `_id`.
 
-> :ok_hand: Relacionamento Models
+#### :ok_hand: Relacionamento das models. 
 
 ~~~~~~
     //Inventory
@@ -120,15 +120,21 @@ php artisan make:filament-resource User --generate
 php artisan make:filament-resource Inventory --simple --generate
 ```
 
-
-> E para criar a relação na view de `InventoryResource`, mostrando os nomes das categorias, usamos o `relationship('category', 'name')`
+#### Relacionamento `BelongsTo` e `HasMany` - view
+> Com a relação criada nas models `BelongsTo` e `HasMany`, podemos criar na view de `InventoryResource`, 
+>o relacionamento, usamos os dois metodos.
 
 ~~~~~~
-        Forms\Components\Select::make('category_id')
-            ->label('Categoria')
+        //Utilizndo relationship *
+        Select::make('category_id')
             ->relationship('category', 'name')
-            ->required(),
+
+        // OU
+        Select::make('category_id')
+            ->options(Category::all()->pluck('name', 'id'))
 ~~~~~~
+
+#### Layouts ( Section & Group) 
 
 > Modifiquei as `GRIDs` do layout do `form` colocando um `Grid::make()`, add um `RichEditor`.
 

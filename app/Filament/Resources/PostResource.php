@@ -7,6 +7,7 @@ use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Category;
 use App\Models\Post;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\MarkdownEditor;
@@ -51,7 +52,7 @@ class PostResource extends Resource
                 TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                MarkdownEditor::make('content')
+                RichEditor::make('content')
                     ->maxLength(65535)
                     ->columnSpanFull(),
                 TagsInput::make('tags')
@@ -64,7 +65,7 @@ class PostResource extends Resource
                     ]),
                 Toggle::make('published')
                     ->required(),
-            ]);
+            ])->columns(10);
     }
 
     public static function table(Table $table): Table

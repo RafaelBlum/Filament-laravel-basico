@@ -48,7 +48,9 @@ php artisan make:model Category -m
 ```
 
 
-#### :ok_hand: Definindo as propriedades das Migrations [documentação laravel migrations table](https://laravel.com/docs/7.x/migrations)
+#### :ok_hand: Propriedades das `Migrations` [documentação laravel migrations table](https://laravel.com/docs/7.x/migrations)
+> Vou demonstrar duas formas de relacionamento na migration, com os `exemplos` em Inventories e Post e na Category se mantém para as duas formas.
+
 ~~~~~~
     Schema::create('inventories', function (Blueprint $table) {
         $table->id();
@@ -63,12 +65,29 @@ php artisan make:model Category -m
     Schema::create('categories', function (Blueprint $table) {
         $table->id();
         $table->string('name');
+        $table->string('slug')->unique();
         $table->timestamps();
     });
 ~~~~~~
 
 - OBs: Se não tem certeza com a chave, `category_id` ou qualquer outra chave, podemos usar a função `foreignIdFor` e 
 passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da classe` e `_id`.
+
+~~~~~~
+    Schema::create('posts', function (Blueprint $table) {
+        $table->id();
+        $table->string('thumbnail')->nullable();
+        $table->string('title');
+        $table->string('color');
+        $table->string('slug')->unique();
+        $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+        $table->text('content')->nullable();
+        $table->json('tags')->nullable();
+        $table->boolean('published')->default(false);
+        $table->timestamps();
+    });
+~~~~~~
+
 
 #### :ok_hand: Relacionamento das models. 
 

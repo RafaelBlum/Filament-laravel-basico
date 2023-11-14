@@ -184,6 +184,9 @@ php artisan make:filament-resource Inventory --simple --generate
     ])->columns(2),
 ~~~~~~
 
+> Com o `collapsible()` podemos fazer com que uma seção seja recolhida, usando o collapsed atributo. O `make("...")` e `description("...")`
+>são titulo e subtitulo e `aside()` se adicionado, podemos alinha a div a esquerda.
+
 <p align="center">
 	<a href="#"  target="_blank" title="Diagrama">
 		<img src="public/images/layouts.jpg" alt="layouts" style="border-radius: 5px;" width="600">

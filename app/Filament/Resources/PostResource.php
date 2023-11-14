@@ -46,6 +46,8 @@ class PostResource extends Resource
                         Forms\Components\Group::make()->schema([
                             TextInput::make('title')
                                 ->required()
+                                ->rules('min:3|max:30')
+                                ->in(['Test', 'Hello'])
                                 ->maxLength(255),
                             ColorPicker::make('color')
                                 ->required(),
@@ -86,7 +88,12 @@ class PostResource extends Resource
                     ->maxLength(65535)
                     ->columnSpanFull(),
 
-            ])->columns(2);
+            ])->columns([
+                'default'   => 1,
+                'md'        => 2,
+                'lg'        => 2,
+                'xl'        => 2,
+            ]);
     }
 
     public static function table(Table $table): Table

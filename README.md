@@ -139,6 +139,7 @@ passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da
 
 ```
 php artisan make:filament-resource Inventory --generate
+php artisan make:filament-resource Post --generate
 php artisan make:filament-resource User --generate
 ```
 
@@ -190,7 +191,12 @@ php artisan make:filament-resource Inventory --simple --generate
                     ->schema([
                     //...
                 ])->columnSpan(1)->columns(2),
-    ])->columns(2),
+    ])->columns([
+          'default'   => 1,
+          'md'        => 2,
+          'lg'        => 2,
+          'xl'        => 2,
+      ]);
 ~~~~~~
 
 > Com o `collapsible()` podemos fazer com que uma seção seja recolhida, usando o collapsed atributo. O `make("...")` e `description("...")`
@@ -216,8 +222,13 @@ php artisan make:migration alter_inventory_table_add_active_column --table=inven
 ~~~~~~
 
 
-#### Validation
-
+#### Validation | [documentation](https://filamentphp.com/docs/3.x/forms/validation)
+##### Abaixo um exemplo dos diversos metodos de validação que o Filament tem.
+~~~~~~
+    TextInput::make('title')->required()
+        ->rules('min:3|max:30')
+        ->in(['test', 'hello'])
+~~~~~~
 #### Table Search & Sorting | 
 
 #### Relationship Manager (1-1 & 1-M) | 

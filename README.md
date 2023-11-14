@@ -10,7 +10,7 @@
 	</a>
 </p>
 
-# 🚀 Demonstrando Filament 3.0 - `Básico`
+# 🚀 Demonstrando Filament 3 Tutorial - `Básico`
 
 > O objetivo deste projeto é demonstrar e trabalhar com a nova versão desta coleção de componentes full-stack do laravel.
 >O filamenté uma ótima opção se queremos acelerar o desenvolvimento, como a propria ferramente nos diz. A documentação é bem fácil de entender,
@@ -43,7 +43,8 @@
 > Criando as migrates e models
 
 ```
-php artisan make:model inventory -m
+php artisan make:model Inventory -m
+php artisan make:model Poost -m
 php artisan make:model Category -m
 ```
 
@@ -92,7 +93,7 @@ passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da
 #### :ok_hand: Relacionamento das models. 
 
 ~~~~~~
-    //Inventory
+    //Inventory and Post
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -105,11 +106,19 @@ passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da
     }
 ~~~~~~
 
+#### Configurando o disco de armazenamento e o diretório
+##### O disco por padrão é o publico, mas podemos modificar para outro e também definir um diretorio.
 > Para que a imagem do produto apareça de forma correta, temos que ativa o `storage link` e modificar logo apos no arquivo `.ENV`
 >a linha de `APP_URL` para receber a base do app `=http://127.0.0.1:8000`.
 
 ```
-php artisan storage:link
+    php artisan storage:link
+```
+
+```
+    FileUpload::make('thumbnail')
+        ->disk('public')
+        ->directory('thumbnails')->columnSpanFull(),
 ```
 
 ## 🚀 Filament
@@ -206,6 +215,26 @@ php artisan make:migration alter_inventory_table_add_active_column --table=inven
     });
 ~~~~~~
 
+
+#### Validation
+
+#### Table Search & Sorting | 
+
+#### Relationship Manager (1-1 & 1-M) | 
+
+#### Many-to-many relationships | 
+
+#### Tabs | 
+
+#### Table Filters | 
+
+#### Polymorphic relations (1-1 & 1-M) | 
+
+#### Table Tabs | 
+
+#### User Panel Access | 
+
+#### Authorization | 
 
 ~~~~~~
 php artisan make:filament-relation-manager PatientResource treatments description

@@ -46,8 +46,7 @@ class PostResource extends Resource
                         Forms\Components\Group::make()->schema([
                             TextInput::make('title')
                                 ->required()
-                                ->rules('min:3|max:30')
-                                ->in(['Test', 'Hello'])
+                                ->rules(['alpha_num'])
                                 ->maxLength(255),
                             ColorPicker::make('color')
                                 ->required(),
@@ -59,6 +58,7 @@ class PostResource extends Resource
                         ->options(Category::all()->pluck('name', 'id')),
                         TextInput::make('slug')
                             ->required()
+                            ->unique(ignoreRecord: true)
                             ->maxLength(255),
 
                 ])->columnSpan(1)->columns(2),

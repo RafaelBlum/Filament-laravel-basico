@@ -223,12 +223,20 @@ php artisan make:migration alter_inventory_table_add_active_column --table=inven
 
 
 #### Validation | [documentation](https://filamentphp.com/docs/3.x/forms/validation)
-##### Abaixo um exemplo dos diversos metodos de validação que o Filament tem.
+Abaixo um exemplo dos diversos metodos de validação dedicados que o Filament inclui, mas você também pode usar 
+quaisquer outras regras de validação do Laravel, incluindo regras de validação personalizadas.
+
 ~~~~~~
     TextInput::make('title')->required()
-        ->rules('min:3|max:30')
+        ->alpha()
+        ->doesntStartWith(['admin'])
+        ->rules(['min:3|max:30', 'alpha'])
         ->in(['test', 'hello'])
 ~~~~~~
+
+> Algo interessante que o Filament nos proposciona é poder adiconar outras regras de validação proprias ou usar as validações
+>que o proprio laravel disponibiliza | [documentation](https://laravel.com/docs/10.x/validation#available-validation-rules). 
+
 #### Table Search & Sorting | 
 
 #### Relationship Manager (1-1 & 1-M) | 

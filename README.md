@@ -151,7 +151,7 @@ php artisan make:filament-resource Inventory --simple --generate
 
 #### Relacionamento (1-1 & 1-M) `BelongsTo` e `HasMany` - view
 Com os metodos de relacionamento criados nos models `BelongsTo` e `HasMany`, vamos add na view de `InventoryResource`, 
-o relacionamento `_relationship_` e ele tem dois argumentos.
+o relacionamento _*relationship*_ e ele tem dois argumentos.
 
 > O primeiro argumento é o _nome do metodo_ no modelo e segundo a _proriedade_ que mostra.
 

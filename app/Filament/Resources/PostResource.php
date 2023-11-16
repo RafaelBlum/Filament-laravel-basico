@@ -54,8 +54,10 @@ class PostResource extends Resource
 
                     Select::make('category_id')
                         ->label('Categoria')
-                        ->required()
-                        ->options(Category::all()->pluck('name', 'id')),
+                        ->relationship('category', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->required(),
                         TextInput::make('slug')
                             ->required()
                             ->unique(ignoreRecord: true)

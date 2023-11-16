@@ -55,6 +55,7 @@ class InventoryResource extends Resource
                 Forms\Components\Select::make('category_id')
                     ->label('Categoria')
                     ->relationship('category', 'name')
+                    ->searchable()
                     ->required(),
             ]);
     }

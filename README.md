@@ -127,9 +127,9 @@ passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da
 
 - make:filament-page              Create a new Filament page class and view
 - make:filament-panel             Create a new Filament panel
-- :boom: make:filament-relation-manager  O Filament oferece muitas maneiras de gerenciar relacionamentos no aplicativo | [documentation](https://filamentphp.com/docs/3.x/panels/resources/relation-managers)
+- :boom: make:filament-relation-manager  :heavy_check_mark: O Filament oferece muitas maneiras de gerenciar relacionamentos no aplicativo | [documentation](https://filamentphp.com/docs/3.x/panels/resources/relation-managers)
     - Os relacionamentos que podem são `HasMany`, `HasManyThrough`, `BelongsToMany`, `MorphMany` e `MorphToMany`.
-    > Os gerenciadores de relacionamento são tabelas interativas que permitem aos administradores listar, criar, anexar, associar, editar, desanexar, dissociar e excluir registros relacionados sem sair da página Editar ou Visualizar do recurso.
+    > :heavy_check_mark: Os gerenciadores de relacionamento são tabelas interativas que permitem aos administradores listar, criar, anexar, associar, editar, desanexar, dissociar e excluir registros relacionados sem sair da página Editar ou Visualizar do recurso.
 - :boom: make:filament-resource          :heavy_check_mark: Cria o arquivo de `resources` do seu modelo em App/Filament e cria toda estrutura das classes padrão.
     - Qualquer `model` que você criar em seu projeto laravel, podemos criar os Filaments em nosso projeto e ter páginas ou modais.
 - make:filament-theme             Create a new Filament panel theme

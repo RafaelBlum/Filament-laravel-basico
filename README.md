@@ -149,18 +149,15 @@ php artisan make:filament-resource User --generate
 php artisan make:filament-resource Inventory --simple --generate
 ```
 
-#### Relacionamento `BelongsTo` e `HasMany` - view
-> Com a relação criada nas models `BelongsTo` e `HasMany`, podemos criar na view de `InventoryResource`, 
->o relacionamento, usamos os dois metodos.
+#### Relacionamento (1-1 & 1-M) `BelongsTo` e `HasMany` - view
+Com os metodos de relacionamento criados nos models `BelongsTo` e `HasMany`, vamos add na view de `InventoryResource`, 
+o relacionamento `_relationship_` e ele tem dois argumentos.
+
+> O primeiro argumento é o _nome do metodo_ no modelo e segundo a _proriedade_ que mostra.
 
 ~~~~~~
-        //Utilizndo relationship *
         Select::make('category_id')
             ->relationship('category', 'name')
-
-        // OU
-        Select::make('category_id')
-            ->options(Category::all()->pluck('name', 'id'))
 ~~~~~~
 
 #### Layouts ( Section & Group) 

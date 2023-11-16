@@ -101,13 +101,16 @@ class PostResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('category.name')
                     ->label('Categoria')
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\ImageColumn::make('thumbnail')
                     ->searchable(),
                 TextColumn::make('title')
+                    ->sortable()
                     ->searchable(),
                 ColorColumn::make('color')
                     ->searchable(),
@@ -116,7 +119,8 @@ class PostResource extends Resource
                 TextColumn::make('slug')
                     ->searchable(),
                 IconColumn::make('published')
-                    ->boolean(),
+                    ->boolean()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

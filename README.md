@@ -38,7 +38,7 @@ funcionalidades e formas de personalizar. Não vou passar tudo sobre a tecnologi
 	</a>
 </p>
 
-#### Diagrama novo do projeto
+#### :gem: Diagrama novo do projeto
 > Descrição de casos...
 
 <p align="center">

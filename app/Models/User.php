@@ -52,6 +52,6 @@ class User extends Authenticatable implements FilamentUser
 
     public function posts()
     {
-        return $this->belongsToMany(Post::class, 'post__users')->withTimestamps();
+        return $this->belongsToMany(Post::class, 'post__users')->withPivot('nota')->withTimestamps();
     }
 }

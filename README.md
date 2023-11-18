@@ -274,18 +274,32 @@ E adicionamos a RelationMangers de `AuthorRelationManger` na class PostResource.
     }
 ~~~~~~
 
-#### Tabs | 
+#### Tabela Pivot
 
-#### Table Filters | 
+Ajustando os metodos de relação de Post e User add `->withPivot('nota')`.
 
-#### Polymorphic relations (1-1 & 1-M) | 
+> Coluna adicionada na migrate pivo post
+- $table->integer('nota')->default(0);
+- php artisan migrate:refresh --step=1
 
-#### Table Tabs | 
+~~~~~~
+    //Post e User add.
+    public function authors()
+    {
+        return $this->belongsToMany(User::class, 'post__users')->withPivot('nota')->withTimestamps();
+    }
+~~~~~~
 
-#### User Panel Access | 
-
-#### Authorization | 
-
+AuthorRelationManger
+~~~~~~
+->headerActions([
+    Tables\Actions\AttachAction::make()
+        ->form(fn (AttachAction $action): array => [
+        $action->getRecordSelect(),
+        Forms\Components\TextInput::make('nota')->required(),
+    ]),
+])
+~~~~~~
 
 #### Layouts ( Section & Group) 
 Alguns detalhes/Dicas de `GRIDs` `Groups`, `Sections` com columns e columnSpans.

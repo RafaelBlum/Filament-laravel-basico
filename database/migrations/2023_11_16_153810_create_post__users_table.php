@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Post::class);
             $table->foreignIdFor(\App\Models\User::class);
+            $table->integer('nota')->default(0);
             $table->timestamps();
         });
     }

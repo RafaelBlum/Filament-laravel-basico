@@ -165,7 +165,7 @@ php artisan make:filament-resource User --generate
 php artisan make:filament-resource Inventory --simple --generate
 ```
 
-### Relacionamento (1-1 & 1-M) `BelongsTo` e `HasMany`
+### :bulb: Relacionamento (1-1 & 1-M) `BelongsTo` e `HasMany`
 Com os metodos de relacionamento criados nos models `BelongsTo` e `HasMany`, vamos add na view de `InventoryResource`, 
 o relacionamento _*relationship*_ e ele tem dois argumentos.
 
@@ -175,7 +175,7 @@ o relacionamento _*relationship*_ e ele tem dois argumentos.
    Select::make('category_id')->relationship('category', 'name')
 ~~~~~~
 
-### Adicionar o Gerenciador de relacionamento
+### :bulb: Adicionar o Gerenciador de relacionamento
 Para adiconar este gerenciador, utilizamos o comando abaixo e mais agluns argumentos como qual `resource` você quer gerenciar,
 (Ex.: `CategoryResource`), segundo é o nome do relacionamento em sua model (Ex.: posts) e por último qual propriedade da model quer usar (title).
 
@@ -197,7 +197,7 @@ php artisan make:filament-relation-manager CategoryResource posts title
 ~~~~~~
 
 
-#### Validation | [documentation](https://filamentphp.com/docs/3.x/forms/validation)
+#### :zap: Validation | [documentation](https://filamentphp.com/docs/3.x/forms/validation)
 Abaixo um exemplo dos `diversos metodos de validação dedicados` que o Filament inclui, mas você também pode usar 
 quaisquer outras regras de validação do Laravel, incluindo regras de validação personalizadas.
 
@@ -213,7 +213,7 @@ quaisquer outras regras de validação do Laravel, incluindo regras de validaç�
 >que o proprio laravel disponibiliza | [documentation](https://laravel.com/docs/10.x/validation#available-validation-rules). 
 
 
-### Many-to-many relationships 
+### :bulb: Many-to-many relationships 
 Nesta relação vamos ter uma `tabela pivo` que irá guardar os IDs de relação entre `User e Post`, assim vamos poder visualizar e gerenciar
 quais autores temos em cada postagem.
 
@@ -255,6 +255,23 @@ Na Edição de `PostResource` adiciono `duas formas` de mostrar a relação que 
             ->label('Autores')
             ->searchable()
             ->relationship('authors', 'name'),
+~~~~~~
+
+#### Gerenciamento dos autores
+
+~~~~~~
+    php artisan make:filament-relation-manager PostResource authors name
+~~~~~~
+
+E adicionamos a RelationMangers de `AuthorRelationManger` na class PostResource.
+
+~~~~~~
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\AuthorsRelationManager::class
+        ];
+    }
 ~~~~~~
 
 #### Tabs | 

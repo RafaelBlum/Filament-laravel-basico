@@ -38,6 +38,31 @@ class PostResource extends Resource
         return $form
             ->schema([
 
+                Forms\Components\Tabs::make('Criar novo post')->tabs([
+                    Forms\Components\Tabs\Tab::make('Image data')->icon('heroicon-m-inbox')->schema([
+                        TagsInput::make('tags')
+                            ->required()
+                            ->suggestions([
+                                'tailwindcss',
+                                'alpinejs',
+                                'laravel',
+                                'livewire',
+                            ]),
+                        Toggle::make('published')
+                            ->required(),
+                        FileUpload::make('thumbnail')
+                            ->disk('public')
+                            ->directory('thumbnails')->columnSpanFull(),
+                    ]),
+
+                    Forms\Components\Tabs\Tab::make('Conteudo')->icon('heroicon-m-inbox')->schema([
+                        RichEditor::make('content')
+                            ->columnSpanFull()
+                            ->maxLength(65535)
+                            ->columnSpanFull(),
+                    ])
+                ]),
+
                 Section::make('Dados básicos da postagem')
                     ->description('Criação de postagem')
                     ->collapsible()
@@ -78,32 +103,6 @@ class PostResource extends Resource
 
 
                 ])->columnSpan(1)->columns(2),
-
-
-
-
-                Section::make('Dados de publicação')
-                    ->schema([
-                        TagsInput::make('tags')
-                            ->required()
-                            ->suggestions([
-                                'tailwindcss',
-                                'alpinejs',
-                                'laravel',
-                                'livewire',
-                            ]),
-                        Toggle::make('published')
-                            ->required(),
-                        FileUpload::make('thumbnail')
-                            ->disk('public')
-                            ->directory('thumbnails')->columnSpanFull(),
-                    ])->columnSpan(1)->columns(2),
-
-                RichEditor::make('content')
-                    ->columnSpanFull()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-
             ])->columns([
                 'default'   => 1,
                 'md'        => 2,

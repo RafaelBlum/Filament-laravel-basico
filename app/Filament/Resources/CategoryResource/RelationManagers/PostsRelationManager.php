@@ -27,7 +27,6 @@ class PostsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-
                 Section::make('Dados básicos da postagem')
                     ->description('Criação de postagem')
                     ->collapsible()

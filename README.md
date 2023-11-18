@@ -39,7 +39,7 @@ funcionalidades e formas de personalizar. Não vou passar tudo sobre a tecnologi
 </p>
 
 #### :gem: Diagrama novo do projeto
-> :green_square: Descrição de casos...
+> Descrição de casos...
 
 <p align="center">
 	<a href="#"  target="_blank" title="Diagrama">
@@ -309,7 +309,7 @@ AuthorRelationManger
 ])
 ~~~~~~
 
-#### Layouts ( Section & Group) 
+#### Layouts ( Section & Group, Tabs) 
 Alguns detalhes/Dicas de `GRIDs` `Groups`, `Sections` com columns e columnSpans.
 
 ~~~~~~
@@ -353,6 +353,25 @@ Alguns detalhes/Dicas de `GRIDs` `Groups`, `Sections` com columns e columnSpans.
 	</a>
 </p>
 
+#### Tabs
+
+~~~~~~
+    Forms\Components\Tabs::make('Criar novo post')->tabs([
+        Forms\Components\Tabs\Tab::make('Image data')->icon('heroicon-m-inbox')->schema([
+            //...
+        ]),
+    
+        Forms\Components\Tabs\Tab::make('Conteudo')->icon('heroicon-m-inbox')->schema([
+            //...
+        ])
+    ]),
+~~~~~~
+
+<p align="center">
+	<a href="#"  target="_blank" title="Diagrama">
+		<img src="public/images/tabs.gif" alt="layouts" style="border-radius: 5px;" width="500">
+	</a>
+</p>
 
 
 ~~~~~~

@@ -39,7 +39,7 @@ funcionalidades e formas de personalizar. Não vou passar tudo sobre a tecnologi
 </p>
 
 #### :gem: Diagrama novo do projeto
-> Descrição de casos...
+> :green_square: Descrição de casos...
 
 <p align="center">
 	<a href="#"  target="_blank" title="Diagrama">

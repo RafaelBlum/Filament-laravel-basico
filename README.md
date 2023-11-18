@@ -12,10 +12,12 @@
 
 # 🚀 Demonstrando Filament 3 Tutorial - `Básico`
 
-> O objetivo deste projeto é demonstrar e trabalhar com a nova versão desta coleção de componentes full-stack do laravel.
->O filamenté uma ótima opção se queremos acelerar o desenvolvimento, como a propria ferramente nos diz. A documentação é bem fácil de entender,
->e realmente traz uma enorme agilidade e rapidez no processo de desenvolvimento do projeto. Vou iniciar criando o projeto exemplo e no decorrer
->do desenvolvimento, criar novas funcionalidades e formas até de personalizar. 
+> O objetivo deste projeto é demonstrar e trabalhar com a nova versão desta coleção de componentes full-stack do laravel, o `Filament`.
+>O filament é uma ótima opção se queremos acelerar o desenvolvimento, como a propria ferramente nos diz. A documentação é bem fácil de entender,
+>e realmente traz uma enorme agilidade e rapidez no processo de desenvolvimento do projeto. 
+
+Irei iniciar criando o projeto exemplo e no decorrer do desenvolvimento, passar por alguns pontos, com dicas, criar novas 
+funcionalidades e formas de personalizar. Não vou passar tudo sobre a tecnologia, pois a documentação do Filament é intuitiva de aprender.
 
 - [Site Filament laravel](https://filamentphp.com/).
 - [Get started Filament](https://filamentphp.com/docs).
@@ -90,7 +92,20 @@ passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da
 ~~~~~~
 
 
+#### Adicionando nova coluna `active` no inventario
+
+```
+php artisan make:migration alter_inventory_table_add_active_column --table=inventories
+```
+
+~~~~~~
+    Schema::table('inventories', function (Blueprint $table) {
+        $table->boolean('active')->default(true);
+    });
+~~~~~~
+
 #### :ok_hand: Relacionamento das models. 
+Estes são os metodos de relacionamento que iremos utilizar na relação `HasMany (1-1 & 1-M)`
 
 ~~~~~~
     //Inventory and Post
@@ -121,14 +136,14 @@ passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da
         ->directory('thumbnails')->columnSpanFull(),
 ```
 
-## 🚀 Filament
+## 🚀 Filament 💥 
 
 #### O Filament tem uma serie de comandos próprios conforme abaixo, que vou deburgar e descrever meu entendimento no decorrer deste projetinho. 
 
 - make:filament-page              Create a new Filament page class and view
 - make:filament-panel             Create a new Filament panel
-- :boom: make:filament-relation-manager  :heavy_check_mark: O Filament oferece muitas maneiras de gerenciar relacionamentos no aplicativo | [documentation](https://filamentphp.com/docs/3.x/panels/resources/relation-managers)
-    - Os relacionamentos que podem são `HasMany`, `HasManyThrough`, `BelongsToMany`, `MorphMany` e `MorphToMany`.
+- :boom: make:filament-relation-manager  :heavy_check_mark: O Filament permite que possamos gerenciar relacionamentos em nosso app. | [documentation](https://filamentphp.com/docs/3.x/panels/resources/relation-managers)
+    - Os relacionamentos que podem ser gerenciados são `HasMany`, `HasManyThrough`, `BelongsToMany`, `MorphMany` e `MorphToMany`.
     > :heavy_check_mark: Os gerenciadores de relacionamento são tabelas interativas que permitem aos administradores listar, criar, anexar, associar, editar, desanexar, dissociar e excluir registros relacionados sem sair da página Editar ou Visualizar do recurso.
 - :boom: make:filament-resource          :heavy_check_mark: Cria o arquivo de `resources` do seu modelo em App/Filament e cria toda estrutura das classes padrão.
     - Qualquer `model` que você criar em seu projeto laravel, podemos criar os Filaments em nosso projeto e ter páginas ou modais.
@@ -136,8 +151,7 @@ passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da
 - make:filament-user              Create a new Filament user
 - make:filament-widget            Create a new Filament widget class
 
-
-> Criando as classes `views completas`| O `generate` irá add todas propriedades da sua migrate, criando páginas para seu projeto.
+Criando as classes `views completas`| O `generate` irá add todas propriedades da sua migrate, criando páginas para seu projeto.
 
 ```
 php artisan make:filament-resource Inventory --generate
@@ -151,7 +165,7 @@ php artisan make:filament-resource User --generate
 php artisan make:filament-resource Inventory --simple --generate
 ```
 
-#### Relacionamento (1-1 & 1-M) `BelongsTo` e `HasMany` - view
+### Relacionamento (1-1 & 1-M) `BelongsTo` e `HasMany`
 Com os metodos de relacionamento criados nos models `BelongsTo` e `HasMany`, vamos add na view de `InventoryResource`, 
 o relacionamento _*relationship*_ e ele tem dois argumentos.
 
@@ -161,9 +175,103 @@ o relacionamento _*relationship*_ e ele tem dois argumentos.
    Select::make('category_id')->relationship('category', 'name')
 ~~~~~~
 
-#### Layouts ( Section & Group) 
+### Adicionar o Gerenciador de relacionamento
+Para adiconar este gerenciador, utilizamos o comando abaixo e mais agluns argumentos como qual `resource` você quer gerenciar,
+(Ex.: `CategoryResource`), segundo é o nome do relacionamento em sua model (Ex.: posts) e por último qual propriedade da model quer usar (title).
 
-> Alguns detalhes/Dicas de `GRIDs` `Groups`, `Sections` com columns e columnSpans.
+~~~~~~
+php artisan make:filament-relation-manager CategoryResource posts title
+~~~~~~
+
+> O filament irá criar um outro diretorio em App/Filament/Resources/CategoryResource/RelaionManagers. chamado de PostsRelationManager.php.
+> Esta mesma é o complemento da categoria, mostrando os relacionamentos que a categoria tem com seus posts, mas antes disso, como a propria documentação
+>do Filament informa, precisamos dizer qual seu relacionament no metodo getRelations da CategoryResource.
+
+~~~~~~
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\PostsRelationManager::class
+        ];
+    }
+~~~~~~
+
+
+#### Validation | [documentation](https://filamentphp.com/docs/3.x/forms/validation)
+Abaixo um exemplo dos `diversos metodos de validação dedicados` que o Filament inclui, mas você também pode usar 
+quaisquer outras regras de validação do Laravel, incluindo regras de validação personalizadas.
+
+~~~~~~
+    TextInput::make('title')->required()
+        ->alpha()
+        ->doesntStartWith(['admin'])
+        ->rules(['min:3|max:30', 'alpha'])
+        ->in(['test', 'hello'])
+~~~~~~
+
+> Algo interessante que o Filament nos proporciona, é poder adiconar outras regras de validação proprias ou usar as validações
+>que o proprio laravel disponibiliza | [documentation](https://laravel.com/docs/10.x/validation#available-validation-rules). 
+
+
+### Many-to-many relationships 
+Nesta relação vamos ter uma `tabela pivo` que irá guardar os IDs de relação entre `User e Post`, assim vamos poder visualizar e gerenciar
+quais autores temos em cada postagem.
+
+~~~~~~
+    Schema::create('post__users', function (Blueprint $table) {
+        $table->id();
+        $table->foreignIdFor(\App\Models\Post::class);
+        $table->foreignIdFor(\App\Models\User::class);
+        $table->timestamps();
+    });
+~~~~~~
+
+Em User e Post criamos os `metodos`.
+~~~~~~
+    //USER
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'post__users')->withTimestamps();
+    }
+
+    //POST
+    public function authors()
+    {
+        return $this->belongsToMany(User::class, 'post__users')->withTimestamps();
+    }
+~~~~~~
+
+Na Edição de `PostResource` adiciono `duas formas` de mostrar a relação que pode ser multiple com `multiplos autores` (Array) e
+`CheckboxList autores`.
+
+~~~~~~
+        Select::make('authors casa')
+            ->label('Autores')
+            ->multiple()
+            ->preload()
+            ->relationship('authors', 'name'),
+
+        Forms\Components\CheckboxList::make('authors casa')
+            ->label('Autores')
+            ->searchable()
+            ->relationship('authors', 'name'),
+~~~~~~
+
+#### Tabs | 
+
+#### Table Filters | 
+
+#### Polymorphic relations (1-1 & 1-M) | 
+
+#### Table Tabs | 
+
+#### User Panel Access | 
+
+#### Authorization | 
+
+
+#### Layouts ( Section & Group) 
+Alguns detalhes/Dicas de `GRIDs` `Groups`, `Sections` com columns e columnSpans.
 
 ~~~~~~
     
@@ -207,51 +315,8 @@ o relacionamento _*relationship*_ e ele tem dois argumentos.
 </p>
 
 
-#### Adicionando nova coluna `active` no inventario
-
-```
-php artisan make:migration alter_inventory_table_add_active_column --table=inventories
-```
 
 ~~~~~~
-    Schema::table('inventories', function (Blueprint $table) {
-        $table->boolean('active')->default(true);
-    });
-~~~~~~
-
-
-#### Validation | [documentation](https://filamentphp.com/docs/3.x/forms/validation)
-Abaixo um exemplo dos diversos metodos de validação dedicados que o Filament inclui, mas você também pode usar 
-quaisquer outras regras de validação do Laravel, incluindo regras de validação personalizadas.
-
-~~~~~~
-    TextInput::make('title')->required()
-        ->alpha()
-        ->doesntStartWith(['admin'])
-        ->rules(['min:3|max:30', 'alpha'])
-        ->in(['test', 'hello'])
-~~~~~~
-
-> Algo interessante que o Filament nos proposciona é poder adiconar outras regras de validação proprias ou usar as validações
->que o proprio laravel disponibiliza | [documentation](https://laravel.com/docs/10.x/validation#available-validation-rules). 
-
-
-#### Many-to-many relationships | 
-
-#### Tabs | 
-
-#### Table Filters | 
-
-#### Polymorphic relations (1-1 & 1-M) | 
-
-#### Table Tabs | 
-
-#### User Panel Access | 
-
-#### Authorization | 
-
-~~~~~~
-php artisan make:filament-relation-manager PatientResource treatments description
 php artisan make:filament-widget PatientTypeOverview --stats-overview
 php artisan make:filament-widget TreatmentsChart --chart
 

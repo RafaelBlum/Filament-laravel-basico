@@ -15,4 +15,11 @@ class Category extends Model
     {
         return $this->hasMany(Inventory::class);
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+
 }

@@ -63,6 +63,20 @@ class PostResource extends Resource
                             ->unique(ignoreRecord: true)
                             ->maxLength(255),
 
+
+
+                        Select::make('authors casa')
+                            ->label('Autores')
+                            ->multiple()
+                            ->preload()
+                            ->relationship('authors', 'name'),
+
+                        Forms\Components\CheckboxList::make('authors casa')
+                            ->label('Autores')
+                            ->searchable()
+                            ->relationship('authors', 'name'),
+
+
                 ])->columnSpan(1)->columns(2),
 
 
@@ -150,7 +164,7 @@ class PostResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\AuthorsRelationManager::class
         ];
     }
     

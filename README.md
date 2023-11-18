@@ -27,15 +27,23 @@ funcionalidades e formas de personalizar. Não vou passar tudo sobre a tecnologi
 > incluir um `sistema de estoque` simples.
 
 #### Descrição dos projetos `exemplo`
- - `Exemplo | Filament`: A construção de um sistema simples de gerenciamento de pacientes para uma clínica veterinária usando o Filament. 
- Apoiará a adição de novos `pacientes` (gatos, cães ou coelhos), atribuindo-os a um `proprietário` e registrando quais 
- `tratamentos` eles receberam. O sistema terá um painel com estatísticas sobre os tipos de pacientes e um gráfico com a 
- quantidade de tratamentos administrados no último ano.
- - `Exemplo | Novo`: 
+>`Exemplo | Filament`: A construção de um sistema simples de gerenciamento de pacientes para uma clínica veterinária usando o Filament. 
+>Apoiará a adição de novos `pacientes` (gatos, cães ou coelhos), atribuindo-os a um `proprietário` e registrando quais 
+>`tratamentos` eles receberam. O sistema terá um painel com estatísticas sobre os tipos de pacientes e um gráfico com a 
+>quantidade de tratamentos administrados no último ano.
 
 <p align="center">
 	<a href="#"  target="_blank" title="Diagrama">
-		<img src="public/images/diagram.jpg" alt="Diagramação de componentes livewire" style="border-radius: 5px;" width="600">
+		<img src="public/images/diagram-filament.jpg" alt="Diagram filament" style="border-radius: 5px;" width="600">
+	</a>
+</p>
+
+#### Diagrama novo do projeto
+> Descrição de casos...
+
+<p align="center">
+	<a href="#"  target="_blank" title="Diagrama">
+		<img src="public/images/diagram.jpg" alt="Diagram filament" style="border-radius: 5px;" width="600">
 	</a>
 </p>
 

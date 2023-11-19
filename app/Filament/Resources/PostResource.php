@@ -26,6 +26,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -82,7 +83,6 @@ class PostResource extends Resource
                         Group::make()->schema([
                             TextInput::make('title')
                                 ->required()
-                                ->rules(['alpha_num'])
                                 ->maxLength(255),
                             ColorPicker::make('color')
                                 ->required(),
@@ -147,7 +147,7 @@ class PostResource extends Resource
                     ->searchable(),
                 IconColumn::make('published')
                     ->boolean()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -158,12 +158,21 @@ class PostResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Filter::make('Posts ativos')->query(
+                    function (Builder $query): Builder {
+                        return $query->where('published', true);
+                    }
+                ),
+                Tables\Filters\TernaryFilter::make('published')->label('Filtro por publicados ou não')->default(true),
+                Tables\Filters\SelectFilter::make('category_id')->label('Categorias')
+                    ->relationship('category', 'name')->preload()
+                    ->multiple()
+
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+//                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+//                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -375,6 +375,32 @@ As Guias ou `"Tabs"`, ajuda muito no front, por oferecer uma exibição de diver
 </p>
 
 
+#### Filtros
+Na tabela podemos adicionar filtros para todos tipos de propriedades que temos em nosso projeto e aqui vai dois exemplos.
+> `Filter` aborda a propriedade booleana para ativos e não e a `TernaryFilter` aborda da mesma forma, mas simplificada. 
+>E a `SelectFilter` temos o filtro por categoria utilizando o relacionamento.
+
+~~~~~~
+    ->filters([
+        Filter::make('Posts ativos')->query(
+            function (Builder $query): Builder {
+                return $query->where('published', true);
+            }
+        ),
+        TernaryFilter::make('published')->label('Filtro por publicados ou não')->default(true),
+        SelectFilter::make('category_id')->label('Categorias')
+            ->relationship('category', 'name')->preload()
+            ->multiple()
+
+    ])
+~~~~~~
+
+<p align="center">
+	<a href="#"  target="_blank" title="Diagrama">
+		<img src="public/images/filters.gif" alt="layouts" style="border-radius: 5px;" width="100%">
+	</a>
+</p>
+
 ~~~~~~
 php artisan make:filament-widget PatientTypeOverview --stats-overview
 php artisan make:filament-widget TreatmentsChart --chart

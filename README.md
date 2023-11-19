@@ -364,7 +364,7 @@ Alguns detalhes/Dicas de `GRIDs` `Groups`, `Sections` com columns e columnSpans.
         Forms\Components\Tabs\Tab::make('Conteudo')->icon('heroicon-m-inbox')->schema([
             //...
         ])
-    ]),
+    ])->columnSpanFull()->activeTab(1)->persistTabInQueryString(),
 ~~~~~~
 
 <p align="center">

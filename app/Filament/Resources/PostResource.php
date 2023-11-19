@@ -14,7 +14,11 @@ use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Tabs\Tab;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Forms\Form;
@@ -29,7 +33,7 @@ class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
     protected static ?string $pluralModelLabel = "Blog";
-    protected static ?string $modelLabel = "noticia";
+    protected static ?string $modelLabel = "notícia";
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -38,37 +42,44 @@ class PostResource extends Resource
         return $form
             ->schema([
 
-                Forms\Components\Tabs::make('Criar novo post')->tabs([
-                    Forms\Components\Tabs\Tab::make('Image data')->icon('heroicon-m-inbox')->schema([
-                        TagsInput::make('tags')
-                            ->required()
-                            ->suggestions([
-                                'tailwindcss',
-                                'alpinejs',
-                                'laravel',
-                                'livewire',
-                            ]),
-                        Toggle::make('published')
-                            ->required(),
-                        FileUpload::make('thumbnail')
-                            ->disk('public')
-                            ->directory('thumbnails')->columnSpanFull(),
+                Tabs::make('Criar novo post')->tabs([
+
+                    Tab::make('Image data')
+                        ->icon('heroicon-m-inbox')
+                        ->badge('Teste')
+                        ->schema([
+                            TagsInput::make('tags')
+                                ->required()
+                                ->suggestions([
+                                    'tailwindcss',
+                                    'alpinejs',
+                                    'laravel',
+                                    'livewire',
+                                ]),
+                            Toggle::make('published')
+                                ->required(),
+                            FileUpload::make('thumbnail')
+                                ->disk('public')
+                                ->directory('thumbnails')->columnSpanFull(),
                     ]),
 
-                    Forms\Components\Tabs\Tab::make('Conteudo')->icon('heroicon-m-inbox')->schema([
+                    Tab::make('Conteudo')
+                        ->icon('heroicon-m-inbox')
+                        ->schema([
                         RichEditor::make('content')
                             ->columnSpanFull()
                             ->maxLength(65535)
                             ->columnSpanFull(),
                     ])
-                ]),
+
+                ])->columnSpanFull()->activeTab(1)->persistTabInQueryString(),
 
                 Section::make('Dados básicos da postagem')
                     ->description('Criação de postagem')
                     ->collapsible()
                     ->schema([
 
-                        Forms\Components\Group::make()->schema([
+                        Group::make()->schema([
                             TextInput::make('title')
                                 ->required()
                                 ->rules(['alpha_num'])
@@ -77,32 +88,33 @@ class PostResource extends Resource
                                 ->required(),
                         ]),
 
-                    Select::make('category_id')
-                        ->label('Categoria')
-                        ->relationship('category', 'name')
-                        ->searchable()
-                        ->preload()
-                        ->required(),
-                        TextInput::make('slug')
-                            ->required()
-                            ->unique(ignoreRecord: true)
-                            ->maxLength(255),
-
-
-
-                        Select::make('authors casa')
-                            ->label('Autores')
-                            ->multiple()
-                            ->preload()
-                            ->relationship('authors', 'name'),
-
-                        Forms\Components\CheckboxList::make('authors casa')
-                            ->label('Autores')
+                        Select::make('category_id')
+                            ->label('Categoria')
+                            ->relationship('category', 'name')
                             ->searchable()
-                            ->relationship('authors', 'name'),
+                            ->preload()
+                            ->required(),
+                            TextInput::make('slug')
+                                ->required()
+                                ->unique(ignoreRecord: true)
+                                ->maxLength(255),
 
 
-                ])->columnSpan(1)->columns(2),
+
+                            Select::make('authors casa')
+                                ->label('Autores')
+                                ->multiple()
+                                ->preload()
+                                ->relationship('authors', 'name'),
+
+                            CheckboxList::make('authors casa')
+                                ->label('Autores')
+                                ->searchable()
+                                ->relationship('authors', 'name'),
+
+
+                ])->columnSpan(1)->columns(2)->columnSpanFull(),
+
             ])->columns([
                 'default'   => 1,
                 'md'        => 2,

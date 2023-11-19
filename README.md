@@ -222,9 +222,11 @@ quaisquer outras regras de validação do Laravel, incluindo regras de validaç�
 
 
 ### :bulb: Many-to-many relationships 
-Nesta relação vamos ter uma `tabela pivo` que irá guardar os IDs de relação entre `User e Post`, assim vamos poder visualizar e gerenciar
-quais autores temos em cada postagem.
+Nesta relação vamos ter uma `tabela pivo` que irá guardar os IDs de relação entre `User e Post`, assim vamos poder 
+visualizar e gerenciar quais `autores` temos em cada `postagem`. E aqui vamos criar a relação, que terá como ser definida no
+formulário de criação do post, mas também vamos criar o gerenciamento que o Filament permite criar.
 
+:speech_balloon: Criação da tabela pivo como o `php artisan make:model post_user -m`.
 ~~~~~~
     Schema::create('post__users', function (Blueprint $table) {
         $table->id();
@@ -234,7 +236,7 @@ quais autores temos em cada postagem.
     });
 ~~~~~~
 
-Em User e Post criamos os `metodos`.
+:speech_balloon: Em User e Post criamos os `metodos` para relação.
 ~~~~~~
     //USER
     public function posts()
@@ -249,8 +251,7 @@ Em User e Post criamos os `metodos`.
     }
 ~~~~~~
 
-Na Edição de `PostResource` adiciono `duas formas` de mostrar a relação que pode ser multiple com `multiplos autores` (Array) e
-`CheckboxList autores`.
+:speech_balloon: Em `PostResource` teremos `duas formas` de mostrar, multiple com `multiplos autores` (Array) e `CheckboxList autores`.
 
 ~~~~~~
         Select::make('authors casa')
@@ -265,11 +266,12 @@ Na Edição de `PostResource` adiciono `duas formas` de mostrar a relação que 
             ->relationship('authors', 'name'),
 ~~~~~~
 
-#### Gerenciamento dos autores
 
-~~~~~~
-    php artisan make:filament-relation-manager PostResource authors name
-~~~~~~
+
+#### :construction: Gerenciamento dos autores
+:speech_balloon: Agora vamos ao `filament-relation-manager` que será adicionado na propria tela.
+:ticket: `php artisan make:filament-relation-manager PostResource authors name`
+
 
 E adicionamos a RelationMangers de `AuthorRelationManger` na class PostResource.
 
@@ -308,6 +310,34 @@ AuthorRelationManger
     ]),
 ])
 ~~~~~~
+
+### Relações polimórficas (1-1 e 1-M) 
+Essa relação polimórfica será criada para relação dos comentários dos usuários nas postagens. Então para isso vamos lá.
+
+~~~~~~
+    php artisan make:model Comment -m
+~~~~~~
+
+~~~~~~
+    Schema::create('comments', function (Blueprint $table) {
+        $table->id();
+        $table->foreignIdFor(\App\Models\User::class);
+        $table->morphs('comentable');
+        $table->string('comment');
+        $table->timestamps();
+    });
+~~~~~~
+
+
+~~~~~~
+php artisan make:filament-resource Commet
+~~~~~~
+
+
+
+
+
+
 
 #### Layouts ( Section & Group, Tabs) 
 Alguns detalhes/Dicas de `GRIDs` `Groups`, `Sections` com columns e columnSpans.

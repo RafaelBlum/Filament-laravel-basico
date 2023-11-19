@@ -54,4 +54,9 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->belongsToMany(Post::class, 'post__users')->withPivot('nota')->withTimestamps();
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }

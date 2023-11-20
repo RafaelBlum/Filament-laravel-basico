@@ -269,11 +269,14 @@ formulário de criação do post, mas também vamos criar o gerenciamento que o 
 
 
 #### :construction: Gerenciamento dos autores
-:speech_balloon: Agora vamos ao `filament-relation-manager` que será adicionado na propria tela.
-:ticket: `php artisan make:filament-relation-manager PostResource authors name`
+:speech_balloon: Agora vamos ao `filament-relation-manager` onde vamos criar o gerenciamento dos autores dos post, onde 
+vamos poder adicionar novos autores ou vincular autores já cadastrados.
 
+~~~~~~
+    php artisan make:filament-relation-manager PostResource authors name
+~~~~~~
 
-E adicionamos a RelationMangers de `AuthorRelationManger` na class PostResource.
+:speech_balloon: Adicionando o RelationMangers de `AuthorRelationManger` na class PostResource.
 
 ~~~~~~
     public static function getRelations(): array
@@ -286,10 +289,13 @@ E adicionamos a RelationMangers de `AuthorRelationManger` na class PostResource.
 
 #### Tabela Pivot
 
-Ajustando os metodos de relação de Post e User add `->withPivot('nota')`.
+:speech_balloon: Ajustando os metodos de relação de Post e User add `->withPivot('nota')`
 
 > Coluna adicionada na migrate pivo post
-- $table->integer('nota')->default(0);
+~~~~~~
+    $table->integer('nota')->default(0);
+~~~~~~
+
 - php artisan migrate:refresh --step=1
 
 ~~~~~~
@@ -300,7 +306,7 @@ Ajustando os metodos de relação de Post e User add `->withPivot('nota')`.
     }
 ~~~~~~
 
-AuthorRelationManger
+:speech_balloon: Add em `AuthorRelationManger` o vinculo de autores ao posta e já definindo a nota.
 ~~~~~~
 ->headerActions([
     Tables\Actions\AttachAction::make()
@@ -312,13 +318,15 @@ AuthorRelationManger
 ~~~~~~
 
 ### Relações polimórficas (1-1 e 1-M) 
-Essa relação polimórfica será criada para relação dos comentários dos usuários nas postagens. Então para isso vamos lá.
+:speech_balloon: Essa relação polimórfica será criada para relação dos comentários dos usuários nas postagens. Então para isso vamos lá.
 
 ~~~~~~
+    //Add migrate
     php artisan make:model Comment -m
 ~~~~~~
 
 ~~~~~~
+    //Property in migrate comments
     Schema::create('comments', function (Blueprint $table) {
         $table->id();
         $table->foreignIdFor(\App\Models\User::class);
@@ -328,9 +336,9 @@ Essa relação polimórfica será criada para relação dos comentários dos usu
     });
 ~~~~~~
 
-
+#### :construction: Gerenciamento dos comentários
 ~~~~~~
-php artisan make:filament-resource Commet
+    php artisan make:filament-resource Comment
 ~~~~~~
 
 

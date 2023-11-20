@@ -5,13 +5,20 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CommentResource\Pages;
 use App\Filament\Resources\CommentResource\RelationManagers;
 use App\Models\Comment;
+use App\Models\Post;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\MorphToSelect;
+use Filament\Forms\Components\MorphToSelect\Type;
 
 class CommentResource extends Resource
 {
@@ -23,7 +30,16 @@ class CommentResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Select::make('user_id')->relationship('user', 'name')->searchable()->preload(),
+                TextInput::make('comment'),
+                MorphToSelect::make('commentable')
+                    ->label('Tipo de comentários')
+                    ->types([
+                        Type::make(Post::class)->titleAttribute('title'),
+                        Type::make(User::class)->titleAttribute('email'),
+                        Type::make(Comment::class)->titleAttribute('id'),
+                    ])
+                    ->searchable()->preload()
             ]);
     }
 

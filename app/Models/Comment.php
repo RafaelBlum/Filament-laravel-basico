@@ -9,6 +9,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    public $guarded = ['id'];
+
     public function commentable()
     {
         return $this->morphTo();

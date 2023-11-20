@@ -317,8 +317,14 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
 ])
 ~~~~~~
 
-### Relações polimórficas (1-1 e 1-M) 
-:speech_balloon: Essa relação polimórfica será criada para relação dos comentários dos usuários nas postagens. Então para isso vamos lá.
+### Relações polimórficas (1-1 e 1-M)
+:speech_balloon: No `relacionamentos polimórficos` vamos lidar com o relacionamento de `1 para 1` e `1 para muitos` e o `gerenciador` de relacionamento. 
+
+> Alguns links de estudo que utilizei para aprendizado e desenvolvimento.
+>   - [Docs relacionamentos do laravel](https://laravel.com/docs/10.x/eloquent-relationships)
+>   - [Dev.to](https://dev.to/ellis22/learn-laravel-polymorphic-relationship-step-by-step-with-example-3pe3)
+>   - [itsolutionstuff 1:1](https://www.itsolutionstuff.com/post/laravel-one-to-many-polymorphic-relationship-tutorialexample.html)
+>   - [itsolutionstuff m:m](https://www.itsolutionstuff.com/post/laravel-many-to-many-polymorphic-relationship-tutorialexample.html)
 
 ~~~~~~
     //Add migrate
@@ -340,6 +346,54 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
 ~~~~~~
     php artisan make:filament-resource Comment
 ~~~~~~
+
+:label: Metodos das classes `Comment, User e Post`.
+
+~~~~~~
+    //Comment
+    public $guarded = ['id'];
+    
+    public function commentable()
+    {
+        return $this->morphTo();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    //User e Post
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+~~~~~~
+
+#### :construction: CommentResource
+:speech_balloon: No form, 
+
+~~~~~~
+    Select::make('user_id')->relationship('user', 'name')->searchable()->preload(),
+    TextInput::make('comment'),
+    MorphToSelect::make('commentable')
+        ->label('Tipo de comentários')
+        ->types([
+            Type::make(Post::class)->titleAttribute('title'),
+            Type::make(User::class)->titleAttribute('email'),
+            Type::make(Comment::class)->titleAttribute('id'),
+        ])
+        ->searchable()->preload()
+~~~~~~
+
+
+
+
+
+
+
+
+
 
 
 

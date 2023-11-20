@@ -347,12 +347,16 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
     php artisan make:filament-resource Comment
 ~~~~~~
 
-:label: Metodos das classes `Comment, User e Post`.
+:label: Aqui, criaremos um modelo de tabela de `Comment, User e Post`. também usaremos "morphMany()" e "morphTo()" para relacionamento de ambos os modelos.
 
 ~~~~~~
     //Comment
     public $guarded = ['id'];
     
+    /**
+    * Comment
+    * Obtenha todos os modelos comentáveis.
+    */
     public function commentable()
     {
         return $this->morphTo();
@@ -363,7 +367,10 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
         return $this->belongsTo(User::class);
     }
 
-    //User e Post
+    /**
+    * User e Post
+    * Obtenha todos os comentários.
+    */
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
@@ -371,9 +378,14 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
 ~~~~~~
 
 #### :construction: CommentResource
-:speech_balloon: No form, 
+:speech_balloon: No form passamos o relationship, comment e o MorphToSelect. 
+:speech_balloon: `MorphToSelect`: Passamos em make o nome definido na migrate comment `$table->morphs('commentable')`.
+:speech_balloon: `types`: Definimos um array, com quais recursos ou modelos podemos usar no relacionamento.
+
+> No types teremos comentários em Postagens, usuários e em outros comentários.
 
 ~~~~~~
+    //FORM
     Select::make('user_id')->relationship('user', 'name')->searchable()->preload(),
     TextInput::make('comment'),
     MorphToSelect::make('commentable')
@@ -384,9 +396,20 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
             Type::make(Comment::class)->titleAttribute('id'),
         ])
         ->searchable()->preload()
+
+    //TABLE
+    ->columns([
+        Tables\Columns\TextColumn::make('commentable_id'),
+        Tables\Columns\TextColumn::make('commentable_type'),
+        Tables\Columns\TextColumn::make('comment'),
+    ])
 ~~~~~~
 
-
+<p align="center">
+	<a href="#"  target="_blank" title="Diagrama">
+		<img src="public/images/comment.gif" alt="Diagram filament" style="border-radius: 5px;" width="100%">
+	</a>
+</p>
 
 
 

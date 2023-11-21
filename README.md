@@ -367,6 +367,11 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
         return $this->belongsTo(User::class);
     }
 
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
     /**
     * User e Post
     * Obtenha todos os comentários.
@@ -411,18 +416,24 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
 	</a>
 </p>
 
+#### :construction: Gerenciando os comentários por postagem
+:speech_balloon: Depois de `filament-relation-manager`, primeiro argumento a classe que terá o gerenciador `Post` e 
+segundo o `nome do metodo` que faz o relacionamento `mophMany` e último é o identificador dos comentários `commentable`.
+~~~~~~
+    php artisan make:filament-relation-manager Post comments commentable
+~~~~~~
+
+#### Definindo relationship
+:speech_balloon: Depois, basta definir o gerenciamento a relação em `getRelations` do `PostResource` e `CommentResource`.
 
 
 
 
 
 
-
-
-
-
-
-
+## Recursos adicionais - opcionais
+:speech_balloon: Aqui `alguns recursos` do Filament que achei `interessante` demonstrar, mas você pode verificar melhor na
+documentação do Filament.
 
 #### Layouts ( Section & Group, Tabs) 
 Alguns detalhes/Dicas de `GRIDs` `Groups`, `Sections` com columns e columnSpans.
@@ -489,6 +500,29 @@ As Guias ou `"Tabs"`, ajuda muito no front, por oferecer uma exibição de diver
 	</a>
 </p>
 
+#### Tab in Tables
+:speech_balloon: [Link docs.](https://filamentphp.com/docs/3.x/panels/resources/listing-records) Guias em tabelas de listas personalizadas. Ex. Em `Filament\Resources\PostResource\Pages\ListPosts`
+
+~~~~~~
+    public function getTabs(): array
+    {
+        return [
+            'Todos'     => Tab::make(),
+            'Ativos'    => Tab::make()->modifyQueryUsing(function (Builder $query){
+                $query->where('published', true);
+            }),
+            'inativos'  => Tab::make()->modifyQueryUsing(function (Builder $query){
+                $query->where('published', false);
+            })
+        ];
+    }
+~~~~~~
+
+<p align="center">
+	<a href="#"  target="_blank" title="Diagrama">
+		<img src="public/images/tabTable.jpg" alt="Diagram filament" style="border-radius: 5px;" width="100%">
+	</a>
+</p>
 
 #### Filtros
 Na tabela podemos adicionar filtros para todos tipos de propriedades que temos em nosso projeto e aqui vai dois exemplos.

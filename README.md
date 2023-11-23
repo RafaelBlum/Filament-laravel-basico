@@ -520,7 +520,7 @@ As Guias ou `"Tabs"`, ajuda muito no front, por oferecer uma exibição de diver
 
 <p align="center">
 	<a href="#"  target="_blank" title="Diagrama">
-		<img src="public/images/tabTable.jpg" alt="Diagram filament" style="border-radius: 5px;" width="100%">
+		<img src="public/images/tabTable.jpg" alt="Diagram filament" style="border-radius: 5px;" width="90%">
 	</a>
 </p>
 
@@ -556,3 +556,19 @@ php artisan make:filament-widget TreatmentsChart --chart
 
 composer require flowframe/laravel-trend
 ~~~~~~
+
+#### Authorization | [Policy Filament.](https://filamentphp.com/docs/3.x/panels/resources/getting-started#authorization)
+:speech_balloon: De acordo com a [documentação Laravel](https://laravel.com/docs/10.x/authorization#creating-policies) (10.x), Políticas são classes que organizam a lógica de autorização 
+em torno de um modelo ou recurso específico. 
+
+:speech_balloon: No comando abaixo vamos criar a policy de Post e os metodos (--model=Category) exemplo de `CRUD da policy`.
+
+~~~~~~
+    php artisan make:policy CategoryPolicy --model=Category
+~~~~~~
+
+
+
+
+
+

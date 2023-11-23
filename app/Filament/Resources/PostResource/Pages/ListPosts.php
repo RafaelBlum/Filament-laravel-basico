@@ -22,7 +22,7 @@ class ListPosts extends ListRecords
     public function getTabs(): array
     {
         return [
-            'Todos'     => Tab::make(),
+            'Todos'     => Tab::make()->icon('heroicon-m-user-group'),
             'Ativos'    => Tab::make()->modifyQueryUsing(function (Builder $query){
                 $query->where('published', true);
             }),

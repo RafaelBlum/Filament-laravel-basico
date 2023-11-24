@@ -13,6 +13,7 @@ class CategoryPolicy
      */
     public function viewAny(User $user): bool
     {
+        //Aqui é git pull * 11:55
         return true;
     }
 

@@ -20,6 +20,8 @@ class CategoryResource extends Resource
     protected static ?string $pluralModelLabel = "Categorias";
     protected static ?string $modelLabel = "Categoria";
 
+    protected static bool $shouldSkipAuthorization = true;
+
     protected static ?string $navigationIcon = 'heroicon-o-arrow-down-on-square';
 
     public static function form(Form $form): Form
@@ -62,14 +64,14 @@ class CategoryResource extends Resource
                 ]),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             RelationManagers\PostsRelationManager::class
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -77,5 +79,5 @@ class CategoryResource extends Resource
             'create' => Pages\CreateCategory::route('/create'),
             'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
-    }    
+    }
 }

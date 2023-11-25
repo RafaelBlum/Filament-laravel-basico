@@ -163,7 +163,7 @@ class PostResource extends Resource
                         return $query->where('published', true);
                     }
                 ),
-                Tables\Filters\TernaryFilter::make('published')->label('Filtro por publicados ou não')->default(true),
+                Tables\Filters\TernaryFilter::make('published')->label('Filtro por publicados ou não'),
                 Tables\Filters\SelectFilter::make('category_id')->label('Categorias')
                     ->relationship('category', 'name')->preload()
                     ->multiple()
@@ -180,7 +180,7 @@ class PostResource extends Resource
                 ]),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
@@ -188,7 +188,7 @@ class PostResource extends Resource
             RelationManagers\CommentsRelationManager::class
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -196,5 +196,5 @@ class PostResource extends Resource
             'create' => Pages\CreatePost::route('/create'),
             'edit' => Pages\EditPost::route('/{record}/edit'),
         ];
-    }    
+    }
 }

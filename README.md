@@ -559,15 +559,20 @@ composer require flowframe/laravel-trend
 
 #### Authorization | [Policy Filament.](https://filamentphp.com/docs/3.x/panels/resources/getting-started#authorization)
 :speech_balloon: De acordo com a [documentação Laravel](https://laravel.com/docs/10.x/authorization#creating-policies) (10.x), Políticas são classes que organizam a lógica de autorização 
-em torno de um modelo ou recurso específico. 
+em torno de um modelo ou recurso específico. E o `Filament se utiliza de todas Polices criada juntamente com os metodos padrões criados no comando abaixo e com outros metodos`.
 
-:speech_balloon: No comando abaixo vamos criar a policy de Post e os metodos (--model=Category) exemplo de `CRUD da policy`.
+:speech_balloon: Cria a policy de Post e os metodos (--model=Category) exemplo de `CRUD da policy`.
 
 ~~~~~~
     php artisan make:policy CategoryPolicy --model=Category
 ~~~~~~
 
+##### Ignorando autorização
+:speech_balloon: Se quiser `ignorar a autorização` de um recurso, você pode definir a `$shouldSkipAuthorizationpropriedade` como `true`:
 
+~~~~~~
+    protected static bool $shouldSkipAuthorization = true;
+~~~~~~
 
 
 

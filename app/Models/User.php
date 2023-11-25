@@ -14,36 +14,23 @@ class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    const ROLE_ADMIN = 'ADMIN';
+    const ROLE_EDITOR = 'EDITOR';
+    const ROLE_USER = 'USER';
+    const ROLE_DEFAULT = self::ROLE_USER;
+
+    const ROLES = [
+        self::ROLE_ADMIN => 'Admin',
+        self::ROLE_EDITOR => 'Editor',
+        self::ROLE_USER => 'User',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $fillable = ['name', 'email', 'password',];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    protected $hidden = ['password', 'remember_token',];
+
+
+    protected $casts = ['email_verified_at' => 'datetime', 'password' => 'hashed',];
 
     public function canAccessPanel(Panel $panel): bool
     {
@@ -59,5 +46,13 @@ class User extends Authenticatable implements FilamentUser
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function isAdmin(){
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isEditor(){
+        return $this->role === self::ROLE_EDITOR;
     }
 }

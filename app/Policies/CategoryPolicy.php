@@ -13,8 +13,7 @@ class CategoryPolicy
      */
     public function viewAny(User $user): bool
     {
-        //Aqui é git pull * 11:55
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -22,7 +21,7 @@ class CategoryPolicy
      */
     public function view(User $user, Category $category): bool
     {
-        //
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -30,7 +29,7 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +37,7 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-        //
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +45,7 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +53,7 @@ class CategoryPolicy
      */
     public function restore(User $user, Category $category): bool
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -62,7 +61,7 @@ class CategoryPolicy
      */
     public function forceDelete(User $user, Category $category): bool
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -70,7 +69,7 @@ class CategoryPolicy
      */
     public function deleteAny(User $user): bool
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -78,7 +77,7 @@ class CategoryPolicy
      */
     public function restoreAny(User $user): bool
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -86,6 +85,6 @@ class CategoryPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        //
+        return $user->isAdmin();
     }
 }

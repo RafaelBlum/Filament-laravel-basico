@@ -25,33 +25,50 @@ class User extends Authenticatable implements FilamentUser
         self::ROLE_USER => 'User',
     ];
 
-    protected $fillable = ['name', 'email', 'password',];
+    protected $fillable = ['name', 'email', 'password', 'role'];
 
     protected $hidden = ['password', 'remember_token',];
 
-
     protected $casts = ['email_verified_at' => 'datetime', 'password' => 'hashed',];
 
+    /**
+     * description pt-Br:
+     * Metodo de autorização do Filament
+    */
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
         //return str_ends_with($this->email, '@hotmail.com') && $this->hasVerifiedEmail();
     }
 
+    /**
+     * description pt-Br:
+     * Usuário pode ter muitas postagens
+     */
     public function posts()
     {
         return $this->belongsToMany(Post::class, 'post__users')->withPivot('nota')->withTimestamps();
     }
 
+    /**
+     * description pt-Br: Relacionamentos Polimórficos
+     *
+     */
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    /**
+     * description pt-Br:
+     */
     public function isAdmin(){
         return $this->role === self::ROLE_ADMIN;
     }
 
+    /**
+     * description pt-Br:
+     */
     public function isEditor(){
         return $this->role === self::ROLE_EDITOR;
     }

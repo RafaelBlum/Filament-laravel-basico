@@ -27,7 +27,7 @@ funcionalidades e formas de personalizar. Não vou passar tudo sobre a tecnologi
 > incluir um `sistema de estoque` simples.
 
 #### Descrição dos projetos `exemplo`
->`Exemplo | Filament`: A construção de um sistema simples de gerenciamento de pacientes para uma clínica veterinária usando o Filament. 
+>`Exemplo | Filament`: A construção de um sistema simples de blog, que terá gerenciamento de pacientes para uma clínica veterinária usando o Filament. 
 >Apoiará a adição de novos `pacientes` (gatos, cães ou coelhos), atribuindo-os a um `proprietário` e registrando quais 
 >`tratamentos` eles receberam. O sistema terá um painel com estatísticas sobre os tipos de pacientes e um gráfico com a 
 >quantidade de tratamentos administrados no último ano.
@@ -39,7 +39,8 @@ funcionalidades e formas de personalizar. Não vou passar tudo sobre a tecnologi
 </p>
 
 #### :gem: Diagrama novo do projeto
-> Descrição de casos...
+> O sistemas de blog terá uma lista de posts (notícias), onde poderá ter associação a uma categoria, comentários dos usuários, assim como respostas a um comentário ou mais e os posts poderão ter associação de um ou mais autores.
+> E por fim também terá uma lista de produtos com associação a uma categoria.
 
 <p align="center">
 	<a href="#"  target="_blank" title="Diagrama">

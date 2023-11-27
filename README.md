@@ -53,8 +53,7 @@
 
 ## :label: Config. database, migrate, models, etc.
 
-#### 💥 Projeto Inventário de estoque
-> Criando as migrates e models
+#### :speech_balloon: Criando as migrates e models `inicias`
 
 ```
 php artisan make:model Inventory -m
@@ -63,8 +62,8 @@ php artisan make:model Category -m
 ```
 
 
-#### :ok_hand: Propriedades das `Migrations` [documentação laravel migrations table](https://laravel.com/docs/7.x/migrations)
-> Vou demonstrar duas formas de relacionamento na migration, com os `exemplos` em Inventories e Post e na Category se mantém para as duas formas.
+#### :speech_balloon: Propriedades das `Migrations` [documentação laravel migrations table](https://laravel.com/docs/7.x/migrations)
+> Vou demonstrar duas formas de relacionamento na migration, com os `exemplos` em Inventories e Post e suas associações com Categoria.
 
 ~~~~~~
     Schema::create('inventories', function (Blueprint $table) {
@@ -85,7 +84,7 @@ php artisan make:model Category -m
     });
 ~~~~~~
 
-- OBs: Se não tem certeza com a chave, `category_id` ou qualquer outra chave, podemos usar a função `foreignIdFor` e 
+- :bell: Se não tem certeza com a chave, `category_id` ou qualquer outra chave, podemos usar a função `foreignIdFor` e 
 passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da classe` e `_id`.
 
 ~~~~~~
@@ -104,7 +103,7 @@ passar a classe Eloquent, que automaticamente irá criar a coluna com o `nome da
 ~~~~~~
 
 
-#### Adicionando nova coluna `active` no inventario
+#### :speech_balloon: Adicionando nova coluna `active` no inventario
 
 ```
 php artisan make:migration alter_inventory_table_add_active_column --table=inventories
@@ -116,7 +115,7 @@ php artisan make:migration alter_inventory_table_add_active_column --table=inven
     });
 ~~~~~~
 
-#### :ok_hand: Relacionamento das models. 
+#### :speech_balloon: Relacionamento das models. 
 Estes são os metodos de relacionamento que iremos utilizar na relação `HasMany (1-1 & 1-M)`
 
 ~~~~~~
@@ -133,7 +132,7 @@ Estes são os metodos de relacionamento que iremos utilizar na relação `HasMan
     }
 ~~~~~~
 
-#### Configurando o disco de armazenamento e o diretório
+#### :speech_balloon: Configurando o disco de armazenamento e o diretório
 ##### O disco por padrão é o publico, mas podemos modificar para outro e também definir um diretorio.
 > Para que a imagem do produto apareça de forma correta, temos que ativa o `storage link` e modificar logo apos no arquivo `.ENV`
 >a linha de `APP_URL` para receber a base do app `=http://127.0.0.1:8000`.
@@ -150,7 +149,8 @@ Estes são os metodos de relacionamento que iremos utilizar na relação `HasMan
 
 ## :label: Filament 💥 
 
-#### O Filament tem uma serie de comandos próprios conforme abaixo, que vou deburgar e descrever meu entendimento no decorrer deste projetinho. 
+#### :speech_balloon: Comandos make:filament-
+O Filament tem uma serie de comandos próprios conforme abaixo, que vou deburgar e descrever meu entendimento no decorrer deste projeto da clínica. 
 
 - make:filament-page              Create a new Filament page class and view
 - make:filament-panel             Create a new Filament panel
@@ -177,7 +177,7 @@ php artisan make:filament-resource User --generate
 php artisan make:filament-resource Inventory --simple --generate
 ```
 
-### :bulb: Relacionamento (1-1 & 1-M) `BelongsTo` e `HasMany`
+## :label: Relacionamento (1-1 & 1-M) `BelongsTo` e `HasMany`
 Com os metodos de relacionamento criados nos models `BelongsTo` e `HasMany`, vamos add na view de `InventoryResource`, 
 o relacionamento _*relationship*_ e ele tem dois argumentos.
 
@@ -187,7 +187,7 @@ o relacionamento _*relationship*_ e ele tem dois argumentos.
    Select::make('category_id')->relationship('category', 'name')
 ~~~~~~
 
-### :bulb: Adicionar o Gerenciador de relacionamento
+#### :speech_balloon: Adicionar o Gerenciador de relacionamento
 Para adiconar este gerenciador, utilizamos o comando abaixo e mais agluns argumentos como qual `resource` você quer gerenciar,
 (Ex.: `CategoryResource`), segundo é o nome do relacionamento em sua model (Ex.: posts) e por último qual propriedade da model quer usar (title).
 
@@ -209,7 +209,7 @@ php artisan make:filament-relation-manager CategoryResource posts title
 ~~~~~~
 
 
-#### :zap: Validation | [documentation](https://filamentphp.com/docs/3.x/forms/validation)
+#### :bell: Validation | [documentation](https://filamentphp.com/docs/3.x/forms/validation)
 Abaixo um exemplo dos `diversos metodos de validação dedicados` que o Filament inclui, mas você também pode usar 
 quaisquer outras regras de validação do Laravel, incluindo regras de validação personalizadas.
 
@@ -225,12 +225,12 @@ quaisquer outras regras de validação do Laravel, incluindo regras de validaç�
 >que o proprio laravel disponibiliza | [documentation](https://laravel.com/docs/10.x/validation#available-validation-rules). 
 
 
-### :bulb: Many-to-many relationships 
+## :label: Many-to-many relationships 
 Nesta relação vamos ter uma `tabela pivo` que irá guardar os IDs de relação entre `User e Post`, assim vamos poder 
 visualizar e gerenciar quais `autores` temos em cada `postagem`. E aqui vamos criar a relação, que terá como ser definida no
 formulário de criação do post, mas também vamos criar o gerenciamento que o Filament permite criar.
 
-:speech_balloon: Criação da tabela pivo como o `php artisan make:model post_user -m`.
+#### :speech_balloon: Criação da tabela pivo como o `php artisan make:model post_user -m`.
 ~~~~~~
     Schema::create('post__users', function (Blueprint $table) {
         $table->id();
@@ -240,7 +240,7 @@ formulário de criação do post, mas também vamos criar o gerenciamento que o 
     });
 ~~~~~~
 
-:speech_balloon: Em User e Post criamos os `metodos` para relação.
+#### :speech_balloon: Em User e Post criamos os `metodos` para relação.
 ~~~~~~
     //USER
     public function posts()
@@ -272,15 +272,15 @@ formulário de criação do post, mas também vamos criar o gerenciamento que o 
 
 
 
-#### :construction: Gerenciamento dos autores
-:speech_balloon: Agora vamos ao `filament-relation-manager` onde vamos criar o gerenciamento dos autores dos post, onde 
+#### :speech_balloon: Gerenciamento dos autores
+Agora vamos ao `filament-relation-manager` onde vamos criar o gerenciamento dos autores dos post, onde 
 vamos poder adicionar novos autores ou vincular autores já cadastrados.
 
 ~~~~~~
     php artisan make:filament-relation-manager PostResource authors name
 ~~~~~~
 
-:speech_balloon: Adicionando o RelationMangers de `AuthorRelationManger` na class PostResource.
+#### :speech_balloon: Adicionando o RelationMangers de `AuthorRelationManger` na class PostResource.
 
 ~~~~~~
     public static function getRelations(): array
@@ -291,9 +291,9 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
     }
 ~~~~~~
 
-#### Tabela Pivot
+## :label: Tabela Pivot
 
-:speech_balloon: Ajustando os metodos de relação de Post e User add `->withPivot('nota')`
+#### :speech_balloon: Ajustando os metodos de relação de Post e User add `->withPivot('nota')`
 
 > Coluna adicionada na migrate pivo post
 ~~~~~~
@@ -310,7 +310,7 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
     }
 ~~~~~~
 
-:speech_balloon: Add em `AuthorRelationManger` o vinculo de autores ao posta e já definindo a nota.
+#### :speech_balloon: Add em `AuthorRelationManger` o vinculo de autores ao posta e já definindo a nota.
 ~~~~~~
 ->headerActions([
     Tables\Actions\AttachAction::make()
@@ -321,8 +321,8 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
 ])
 ~~~~~~
 
-### Relações polimórficas (1-1 e 1-M)
-:speech_balloon: No `relacionamentos polimórficos` vamos lidar com o relacionamento de `1 para 1` e `1 para muitos` e o `gerenciador` de relacionamento. 
+## :label: Relações polimórficas (1-1 e 1-M)
+#### :speech_balloon: No `relacionamentos polimórficos` vamos lidar com o relacionamento de `1 para 1` e `1 para muitos` e o `gerenciador` de relacionamento. 
 
 > Alguns links de estudo que utilizei para aprendizado e desenvolvimento.
 >   - [Docs relacionamentos do laravel](https://laravel.com/docs/10.x/eloquent-relationships)
@@ -346,12 +346,12 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
     });
 ~~~~~~
 
-#### :construction: Gerenciamento dos comentários
+#### :speech_balloon: Gerenciamento dos comentários
 ~~~~~~
     php artisan make:filament-resource Comment
 ~~~~~~
 
-:label: Aqui, criaremos um modelo de tabela de `Comment, User e Post`. também usaremos "morphMany()" e "morphTo()" para relacionamento de ambos os modelos.
+#### :bell: Aqui, criaremos um modelo de tabela de `Comment, User e Post`. também usaremos "morphMany()" e "morphTo()" para relacionamento de ambos os modelos.
 
 ~~~~~~
     //Comment
@@ -386,7 +386,7 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
     }
 ~~~~~~
 
-#### :construction: CommentResource
+#### :speech_balloon: CommentResource
 :speech_balloon: No form passamos o relationship, comment e o MorphToSelect. 
 :speech_balloon: `MorphToSelect`: Passamos em make o nome definido na migrate comment `$table->morphs('commentable')`.
 :speech_balloon: `types`: Definimos um array, com quais recursos ou modelos podemos usar no relacionamento.
@@ -420,21 +420,21 @@ vamos poder adicionar novos autores ou vincular autores já cadastrados.
 	</a>
 </p>
 
-#### :construction: Gerenciando os comentários por postagem
+#### :speech_balloon: Gerenciando os comentários por postagem
 :speech_balloon: Depois de `filament-relation-manager`, primeiro argumento a classe que terá o gerenciador `Post` e 
 segundo o `nome do metodo` que faz o relacionamento `mophMany` e último é o identificador dos comentários `commentable`.
 ~~~~~~
     php artisan make:filament-relation-manager Post comments commentable
 ~~~~~~
 
-#### Definindo relationship
+#### :speech_balloon: Definindo relationship
 :speech_balloon: Depois, basta definir o gerenciamento a relação em `getRelations` do `PostResource` e `CommentResource`.
 
 ## :label: Recursos adicionais - opcionais
 :speech_balloon: Aqui `alguns recursos` do Filament que achei `interessante` demonstrar, mas você pode verificar melhor na
 documentação do Filament.
 
-#### Layouts ( Section & Group, Tabs) 
+#### :speech_balloon: Layouts ( Section & Group, Tabs) 
 Alguns detalhes/Dicas de `GRIDs` `Groups`, `Sections` com columns e columnSpans.
 
 ~~~~~~
@@ -478,7 +478,7 @@ Alguns detalhes/Dicas de `GRIDs` `Groups`, `Sections` com columns e columnSpans.
 	</a>
 </p>
 
-#### Tabs
+#### :speech_balloon: Tabs
 As Guias ou `"Tabs"`, ajuda muito no front, por oferecer uma exibição de diversas telas em uma única guia.
 
 ~~~~~~
@@ -499,7 +499,7 @@ As Guias ou `"Tabs"`, ajuda muito no front, por oferecer uma exibição de diver
 	</a>
 </p>
 
-#### Tab in Tables
+#### :speech_balloon: Tab in Tables
 :speech_balloon: [Link docs.](https://filamentphp.com/docs/3.x/panels/resources/listing-records) Guias em tabelas de listas personalizadas. Ex. Em `Filament\Resources\PostResource\Pages\ListPosts`
 
 ~~~~~~
@@ -523,7 +523,7 @@ As Guias ou `"Tabs"`, ajuda muito no front, por oferecer uma exibição de diver
 	</a>
 </p>
 
-#### Filtros
+#### :speech_balloon: Filtros
 Na tabela podemos adicionar filtros para todos tipos de propriedades que temos em nosso projeto e aqui vai dois exemplos.
 > `Filter` aborda a propriedade booleana para ativos e não e a `TernaryFilter` aborda da mesma forma, mas simplificada. 
 >E a `SelectFilter` temos o filtro por categoria utilizando o relacionamento.
@@ -556,7 +556,7 @@ php artisan make:filament-widget TreatmentsChart --chart
 composer require flowframe/laravel-trend
 ~~~~~~
 
-#### Authorization | [Policy Filament.](https://filamentphp.com/docs/3.x/panels/resources/getting-started#authorization)
+#### :speech_balloon: Authorization | [Policy Filament.](https://filamentphp.com/docs/3.x/panels/resources/getting-started#authorization)
 :speech_balloon: De acordo com a [documentação Laravel](https://laravel.com/docs/10.x/authorization#creating-policies) (10.x), Políticas são classes que organizam a lógica de autorização 
 em torno de um modelo ou recurso específico. E o `Filament se utiliza de todas Polices criada juntamente com os metodos padrões criados no comando abaixo e com outros metodos`.
 
@@ -566,13 +566,23 @@ em torno de um modelo ou recurso específico. E o `Filament se utiliza de todas 
     php artisan make:policy CategoryPolicy --model=Category
 ~~~~~~
 
-##### Ignorando autorização
+##### :speech_balloon: Ignorando autorização
 :speech_balloon: Se quiser `ignorar a autorização` de um recurso, você pode definir a `$shouldSkipAuthorizationpropriedade` como `true`:
 
 ~~~~~~
     protected static bool $shouldSkipAuthorization = true;
 ~~~~~~
 
+### :star: Contatos
 
+Contatos 👇🏼 [rafaelblum_digital@hotmail.com]
 
+[![Youtube Badge](https://img.shields.io/badge/-Youtube-FF0000?style=flat-square&labelColor=FF0000&logo=youtube&logoColor=white&link=https://www.youtube.com/channel/UCMvtn8HZ12Ud-sdkY5KzTog)](https://www.youtube.com/channel/UCMvtn8HZ12Ud-sdkY5KzTog)
+[![Instagram Badge](https://img.shields.io/badge/-rafablum_-violet?style=flat-square&logo=Instagram&logoColor=white&link=https://www.instagram.com/rafablum_/)](https://www.instagram.com/rafablum_/)
+[![Twitter: universoCode](https://img.shields.io/twitter/follow/universoCode?style=social)](https://twitter.com/universoCode)
+[![Linkedin: RafaelBlum](https://img.shields.io/badge/-RafaelBlum-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/rafael-blum-378656285/)](https://www.linkedin.com/in/rafael-blum-378656285/)
+[![GitHub RafaelBlum](https://img.shields.io/github/followers/RafaelBlum?label=follow&style=social)](https://github.com/RafaelBlum)
 
+<br/>
+
+<img src="https://media.giphy.com/media/LnQjpWaON8nhr21vNW/giphy.gif" width="60"> <em><b>Adoro me conectar com pessoas diferentes,</b> então se você quiser dizer <b>oi, ficarei feliz em conhecê-lo mais!</b> :)</em>

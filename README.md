@@ -16,18 +16,17 @@
 >O filament é uma ótima opção se queremos acelerar o desenvolvimento, como a propria ferramente nos diz. A documentação é bem fácil de entender,
 >e realmente traz uma enorme agilidade e rapidez no processo de desenvolvimento do projeto. 
 
-Irei iniciar criando o projeto exemplo e no decorrer do desenvolvimento, passar por alguns pontos, com dicas, criar novas 
-funcionalidades e formas de personalizar. Não vou passar tudo sobre a tecnologia, pois a documentação do Filament é intuitiva de aprender.
-
 - [Site Filament laravel](https://filamentphp.com/).
 - [Get started Filament](https://filamentphp.com/docs).
 - [Panel Builder Installation](https://filamentphp.com/docs/3.x/panels/installation).
 
-> Este projeto de exemplo irá abordar o exemplo que o próprio  `Filament` gera como exemplo em sua `página de panels` e vamos 
-> incluir um `sistema de estoque` simples.
+> :star: Este sistema de exemplo irá abordar o primeiro exemplo que a próprio documentação do `Filament` demosntra e 
+>também irei adicionar novas funcionalidades para melhor aprendizado e melhorar o sistema.
+> Obs.: Toda codificação e exeplicações do exemplo que a documentação apresenta, não irei descrever.
 
-#### Descrição dos projetos `exemplo`
->`Exemplo | Filament`: A construção de um sistema simples de blog, que terá gerenciamento de pacientes para uma clínica veterinária usando o Filament. 
+#### :speech_balloon: Descrição dos projetos `exemplo`
+>`Exemplo | Filament`: :star2: Sera a construção de um sistema simples de clínica veterinária e com novas funcionalidades 
+>descritas abaixo, terá gerenciamento de pacientes para uma clínica veterinária usando o Filament. 
 >Apoiará a adição de novos `pacientes` (gatos, cães ou coelhos), atribuindo-os a um `proprietário` e registrando quais 
 >`tratamentos` eles receberam. O sistema terá um painel com estatísticas sobre os tipos de pacientes e um gráfico com a 
 >quantidade de tratamentos administrados no último ano.
@@ -38,15 +37,19 @@ funcionalidades e formas de personalizar. Não vou passar tudo sobre a tecnologi
 	</a>
 </p>
 
-#### :gem: Diagrama novo do projeto
-> O sistemas de blog terá uma lista de posts (notícias), onde poderá ter associação a uma categoria, comentários dos usuários, assim como respostas a um comentário ou mais e os posts poderão ter associação de um ou mais autores.
-> E por fim também terá uma lista de produtos com associação a uma categoria.
+#### :speech_balloon: Diagrama novo do projeto
+> :star2: Continuando a construção do sistema da clínica, vamos adicionar novas funcionalidades, com um blog, que terá 
+>uma lista de `posts` (notícias) com seus devidos autores, onde teremos associações de `categorias`, `comentários` e replicas de comentários dos `usuários`.
+> E por fim também terá a adição lista de `produtos` que a clínica terá em seu estoque com associação a categorias.
 
 <p align="center">
 	<a href="#"  target="_blank" title="Diagrama">
 		<img src="public/images/diagram.jpg" alt="Diagram filament" style="border-radius: 5px;" width="600">
 	</a>
 </p>
+
+> :bell: No sistema da clínica, vamos poder verificar em cada view, suas associações conforme o Filament disponibiliza 
+>com o gerenciamento das categorias, comentários, posts, pacientes, etc.
 
 ## :label: Config. database, migrate, models, etc.
 
@@ -145,7 +148,7 @@ Estes são os metodos de relacionamento que iremos utilizar na relação `HasMan
         ->directory('thumbnails')->columnSpanFull(),
 ```
 
-## 🚀 Filament 💥 
+## :label: Filament 💥 
 
 #### O Filament tem uma serie de comandos próprios conforme abaixo, que vou deburgar e descrever meu entendimento no decorrer deste projetinho. 
 
@@ -427,12 +430,7 @@ segundo o `nome do metodo` que faz o relacionamento `mophMany` e último é o id
 #### Definindo relationship
 :speech_balloon: Depois, basta definir o gerenciamento a relação em `getRelations` do `PostResource` e `CommentResource`.
 
-
-
-
-
-
-## Recursos adicionais - opcionais
+## :label: Recursos adicionais - opcionais
 :speech_balloon: Aqui `alguns recursos` do Filament que achei `interessante` demonstrar, mas você pode verificar melhor na
 documentação do Filament.
 

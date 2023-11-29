@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
+    protected static ?string $navigationGroup = "Blog";
+
     protected static ?string $pluralModelLabel = "Blog";
     protected static ?string $modelLabel = "notícia";
 

@@ -1,6 +1,12 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
+	<a href="#"  target="_blank" title="stack">
+		<img src="public/images/tall.JPG" alt="tall filament" style="border-radius: 5px;" width="400">
+	</a>
+</p>
+
+<p align="center">
 	<img src="https://img.shields.io/badge/version project-1.0-brightgreen" alt="version project filament">
     <img src="https://img.shields.io/badge/Php-8.2-informational&color=brightgreen" alt="stack project">
     <img src="https://img.shields.io/static/v1?label=Laravel&message=10.10&color=brightgreen?style=for-the-badge" alt="stack project">
@@ -12,9 +18,10 @@
 
 # 🚀 Demonstrando Filament 3 Tutorial - `Básico`
 
-> O objetivo deste projeto é demonstrar e trabalhar com a nova versão desta coleção de componentes full-stack do laravel, o `Filament`.
->O filament é uma ótima opção se queremos acelerar o desenvolvimento, como a propria ferramente nos diz. A documentação é bem fácil de entender,
->e realmente traz uma enorme agilidade e rapidez no processo de desenvolvimento do projeto. 
+> Vamos conhecer o Filament, um conjunto de modulos com muitos componentes que irão acelerar o desenvolvimento de nossas aplicações web.
+>O Filament se baseia na `Tall` Stack (`TailWindCSS`, `AlpineJS`, `Laravel`, `Livewire`) e neste projeto vamos desenvolver um projeto 
+>de clinica de exemplo da documentação e adicionar novas funcionalidades.
+
 
 - [Site Filament laravel](https://filamentphp.com/).
 - [Get started Filament](https://filamentphp.com/docs).

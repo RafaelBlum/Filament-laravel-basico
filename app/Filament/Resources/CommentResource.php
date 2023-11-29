@@ -24,6 +24,7 @@ use Filament\Forms\Components\MorphToSelect\Type;
 class CommentResource extends Resource
 {
     protected static ?string $model = Comment::class;
+    protected static ?string $navigationGroup = "Blog";
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -65,14 +66,14 @@ class CommentResource extends Resource
                 ]),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             CommentsRelationManager::class,
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -80,5 +81,5 @@ class CommentResource extends Resource
             'create' => Pages\CreateComment::route('/create'),
             'edit' => Pages\EditComment::route('/{record}/edit'),
         ];
-    }    
+    }
 }

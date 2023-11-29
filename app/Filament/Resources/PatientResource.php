@@ -16,10 +16,14 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class PatientResource extends Resource
 {
     protected static ?string $model = Patient::class;
+    protected static ?string $navigationGroup = "Clínica";
+    protected static ?string $activeNavigationIcon = 'heroicon-o-user';
+
     protected static ?string $pluralModelLabel = "Pacientes";
     protected static ?string $modelLabel = "Paciente";
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
 
     public static function form(Form $form): Form
     {
@@ -103,14 +107,14 @@ class PatientResource extends Resource
                 ]),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             RelationManagers\TreatmentsRelationManager::class,
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -118,5 +122,5 @@ class PatientResource extends Resource
             'create' => Pages\CreatePatient::route('/create'),
             'edit' => Pages\EditPatient::route('/{record}/edit'),
         ];
-    }    
+    }
 }

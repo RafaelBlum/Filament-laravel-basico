@@ -150,18 +150,13 @@ Estes são os metodos de relacionamento que iremos utilizar na relação `HasMan
 ## :label: Filament 💥 
 
 #### :speech_balloon: Comandos make:filament-
-O Filament tem uma serie de comandos próprios conforme abaixo, que vou deburgar e descrever meu entendimento no decorrer deste projeto da clínica. 
+Vamos utilizar dois dos vários comandos que o Filament disponibiliza `filament-resource` e `filament-relation-manager`. 
 
-- make:filament-page              Create a new Filament page class and view
-- make:filament-panel             Create a new Filament panel
 - :boom: make:filament-relation-manager  :heavy_check_mark: O Filament permite que possamos gerenciar relacionamentos em nosso app. | [documentation](https://filamentphp.com/docs/3.x/panels/resources/relation-managers)
     - Os relacionamentos que podem ser gerenciados são `HasMany`, `HasManyThrough`, `BelongsToMany`, `MorphMany` e `MorphToMany`.
     > :heavy_check_mark: Os gerenciadores de relacionamento são tabelas interativas que permitem aos administradores listar, criar, anexar, associar, editar, desanexar, dissociar e excluir registros relacionados sem sair da página Editar ou Visualizar do recurso.
 - :boom: make:filament-resource          :heavy_check_mark: Cria o arquivo de `resources` do seu modelo em App/Filament e cria toda estrutura das classes padrão.
     - Qualquer `model` que você criar em seu projeto laravel, podemos criar os Filaments em nosso projeto e ter páginas ou modais.
-- make:filament-theme             Create a new Filament panel theme
-- make:filament-user              Create a new Filament user
-- make:filament-widget            Create a new Filament widget class
 
 Criando as classes `views completas`| O `generate` irá add todas propriedades da sua migrate, criando páginas para seu projeto.
 
